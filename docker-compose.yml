@@ -1,0 +1,38 @@
+version: "3.3"
+services:
+  tbc-app:
+    hostname: app
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: deploy  
+    ports:
+      - 3010:3000
+    depends_on:
+      - tbc-mysql
+  tbc-mysql:
+      image: mysql:5.7
+      container_name: tbc-mysql
+      hostname: mysql
+      environment:
+        - MYSQL_DATABASE=${DATABASE_NAME}
+        - MYSQL_USER=${DATABASE_USER}
+        - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+        - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
+      restart: unless-stopped
+      ports:
+        - 3310:3306
+      volumes:
+        - mysql-data:/var/lib/mysql
+
+
+volumes:
+  mysql-data:
+
+networks:
+  default:
+    driver: bridge
+
+
+
