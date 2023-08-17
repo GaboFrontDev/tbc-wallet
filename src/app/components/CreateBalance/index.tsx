@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import Button from "../Button";
+import Input from "../Input";
 
 interface AccountBalance {
   account_id: string;
@@ -31,7 +33,7 @@ function CreateBalance() {
       <form>
         <label htmlFor="balance">Balance nueva cuenta</label>
         <br />
-        <input
+        <Input
           type="number"
           name="balance"
           id="balance"
@@ -40,9 +42,9 @@ function CreateBalance() {
           onChange={(e) => setCurrent(e.target.value)}
         />
         <br />
-        <button type="button" onClick={onClick}>
+        <Button type="button" onClick={onClick}>
           Crear Nueva Cuenta
-        </button>
+        </Button>
       </form>
       {accountID.length && <p>ID de nueva cuenta: {accountID}</p>}
     </>

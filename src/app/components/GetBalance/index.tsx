@@ -1,5 +1,6 @@
 "use client";
 import { FormEvent, useState } from "react";
+import Input from "../Input";
 
 type Balance = {
   current: number;
@@ -21,7 +22,7 @@ function GetBalance() {
       <form onSubmit={onSubmit}>
         <label htmlFor="client_id"></label>
         <br />
-        <input
+        <Input
           type="text"
           className="text-black"
           name="client_id"

@@ -3,6 +3,8 @@ import { FormEvent, useState } from "react";
 import { useRouter } from 'next/navigation';
 import Cookies from 'universal-cookie';
 
+import Input from "../Input";
+
 function LoginForm() {
   const router = useRouter();
   const [isLogin, setIsLogin] = useState(true);
@@ -23,7 +25,7 @@ function LoginForm() {
       const cookies = new Cookies();
       if(data.result?.token) {
         cookies.set("session_token", data.result?.token);
-        router.push("/admin");
+        router.refresh();
       }
     });
   };
@@ -31,9 +33,9 @@ function LoginForm() {
   return (
     <>
       <form onSubmit={sendUser}>
-        <h1>{isLogin ? "Login" : "Create Account"}</h1>
+        <h1>{isLogin ? "Login" : "Crear Cuenta"}</h1>
         <label htmlFor="email">Email</label>
-        <input
+        <Input
           type="text"
           name="email"
           id="email"
@@ -43,7 +45,7 @@ function LoginForm() {
         />
         <br />
         <label htmlFor="password">Password</label>
-        <input
+        <Input
           type="password"
           name="password"
           id="password"

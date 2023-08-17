@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Input from "@/app/components/Input";
 
 function UpdateBalanceForm() {
   const [balance, setBalance] = useState("");
@@ -22,7 +23,7 @@ function UpdateBalanceForm() {
     <>
       <form onSubmit={onSubmit}>
         <label htmlFor="usuario">Usuario</label>
-        <input
+        <Input
           className="text-black"
           type="text"
           name="usuario"
@@ -31,7 +32,7 @@ function UpdateBalanceForm() {
         />
         <br />
         <label htmlFor="balance">Descuento</label>
-        <input
+        <Input
           className="text-black"
           type="number"
           name="balance"
