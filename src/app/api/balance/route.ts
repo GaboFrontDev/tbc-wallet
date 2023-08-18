@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
       status: 400,
     });
   }
-  if (data.balance <= 0) {
+  if (+data.balance <= 0) {
     return NextResponse.json(ERROR_JSON, {
       status: 400,
     });
