@@ -26,7 +26,17 @@ export async function GET(req: NextRequest) {
       current: true,
     },
   });
-  return NextResponse.json(balance);
+  const balanceHistory = await prisma.account_balance_history.findMany({
+    where: {
+      account_id,
+    }
+  });
+  console.log(balanceHistory);
+
+  return NextResponse.json({
+    ...balance,
+    balanceHistory
+  });
 }
 
 export async function POST(req: NextRequest) {
@@ -61,6 +71,12 @@ export async function POST(req: NextRequest) {
     },
     data: {
       current: (account?.current || 0) - data.balance,
+    },
+  });
+  await prisma.account_balance_history.create({
+    data: {
+      account_id: obj.account_id,
+      discount: data.balance,
     },
   });
   return NextResponse.json({

@@ -13,7 +13,7 @@ export default function AccountBalancePageWithId({
   console.log(params);
   return (
     <>
-      <div>Account Balance Page</div>
+
       <GetBalanceWithParam  id={params.slug} />
     </>
   );

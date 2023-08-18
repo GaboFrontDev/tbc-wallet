@@ -1,4 +1,4 @@
-import ShortUniqueId from 'short-unique-id';
+import ShortUniqueId from "short-unique-id";
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
@@ -14,12 +14,12 @@ export async function GET(Request: NextRequest) {
 
 export async function POST(req: NextRequest) {
   const uid = new ShortUniqueId({
-    length: 8
+    length: 8,
   });
   const data: Payload = await req.json();
   const obj = {
     current: data.current,
-    account_id: uid()
+    account_id: uid(),
   };
   const balance = await prisma.account_balance.create({ data: obj });
   return NextResponse.json(

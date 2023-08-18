@@ -21,3 +21,10 @@ model account_balance {
     account_id String @unique
     current Int
 }
+
+
+model account_balance_history {
+    id String @unique @default(uuid())
+    account_id String
+    discount Int
+}
