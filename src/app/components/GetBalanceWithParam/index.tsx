@@ -39,7 +39,7 @@ function GetBalanceWithParam({ id }: GetBalanceProps) {
       <h2>Historial</h2>
       <ol>
         {historial?.map(({ discount }, index) => {
-          return <li key={`historial-${index}`}>Compra registrada por {discount}</li>;
+          return <li key={`historial-${index}`}>Descuento registrada por la cantidad de {discount}</li>;
         })}
       </ol>
     </>
