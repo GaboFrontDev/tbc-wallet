@@ -6,16 +6,22 @@ type Balance = {
   current: number;
 };
 
+type GetBalanceProps = {
+  id: string;
+};
+
 function GetBalance() {
   const [clientID, setClientID] = useState("");
   const [saldo, setSaldo] = useState(0);
+
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
     fetch(`/api/balance?client_id=${clientID}`).then(async (res) => {
       const data = (await res.json()) as Balance;
-      setSaldo(data.current);
+      setSaldo(data?.current);
     });
   };
+
 
   return (
     <>

@@ -23,7 +23,7 @@ export default function Nav() {
   };
 
   return (
-    <div className="text-white my-2 flex">
+    <div className="my-2 flex">
       <div>
         <LinkWithActiveClass href="/account">
           Consultar Saldo
