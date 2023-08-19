@@ -1,29 +1,26 @@
 "use client";
 import { FormEvent, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import "react-toastify/dist/ReactToastify.min.css";
+
 import Input from "../Input";
 import Button from "../Button";
 import Form from "../Form";
-import Subtitle from "../Subtitle";
-import type { account_balance_history } from "@prisma/client";
 import Title from "../Title";
-
-type Balance = {
-  current: number;
-  balanceHistory: account_balance_history[];
-};
 
 
 function GetBalance() {
+  const router = useRouter();
   const [clientID, setClientID] = useState("");
-  const [saldo, setSaldo] = useState(0);
-  const [historial, setHistorial] = useState<account_balance_history[]>([]);
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
+    toast.loading("Cargando...");
     fetch(`/api/balance?client_id=${clientID}`).then(async (res) => {
-      const data = (await res.json()) as Balance;
-      setSaldo(data?.current);
-      setHistorial(data?.balanceHistory);
+      if(res.ok) {
+        router.push(`account/${clientID}`);
+      }
     });
   };
 
@@ -42,12 +39,12 @@ function GetBalance() {
         <br />
         <Button type="submit">Consultar</Button>
       </Form>
-      <Subtitle>{saldo}</Subtitle>
-      <ol>
-        {historial.map(({ discount }, index) => {
-          return <li key={`historial-${index}`}>Descuento registrada por la cantidad de {discount}</li>;
-        })}
-      </ol>
+      <ToastContainer
+          closeOnClick
+          position="bottom-center"
+          autoClose={3000}
+          hideProgressBar={false}
+        />
     </>
   );
 }

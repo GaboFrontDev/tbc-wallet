@@ -86,7 +86,7 @@ function LoginForm() {
               </Button>
             </Form>
           </div>
-          <div className="flex items-center justify-center">
+          {/* <div className="flex items-center justify-center">
             <Button
               type="button"
               className="w-full"
@@ -94,7 +94,7 @@ function LoginForm() {
             >
               {isLogin ? "Crear Cuenta Administrador" : "Soy Administrador"}
             </Button>
-          </div>
+          </div> */}
         </div>
         <ToastContainer
           closeOnClick
