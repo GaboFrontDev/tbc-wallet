@@ -38,12 +38,14 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  console.log("hi")
   const data: Payload = await req.json();
   const obj = {
     current: data.balance,
     account_id: data.account_id,
     description: data.description,
   };
+
   const account = await prisma.account_balance.findUnique({
     where: {
       account_id: obj.account_id,

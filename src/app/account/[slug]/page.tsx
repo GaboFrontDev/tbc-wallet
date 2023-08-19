@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 const GetBalanceWithParam = dynamic(
   () => import("@/app/components/GetBalanceWithParam"),
   {
-    ssr: true,
+    ssr: false,
     loading: () => <div>loading...</div>,
   }
 );

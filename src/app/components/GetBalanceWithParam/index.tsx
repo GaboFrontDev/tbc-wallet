@@ -2,9 +2,17 @@
 import { format } from "date-fns";
 import { es } from "date-fns/esm/locale";
 import type { account_balance_history } from "@prisma/client";
+import { useCookies } from "next-client-cookies";
+import { parseJwt } from "@/app/lib/utils";
 
 import Title from "../Title";
 import Subtitle from "../Subtitle";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
+type TokenData = {
+  is_admin?: boolean;
+};
 
 type BalanceResponse = {
   current: number;
@@ -12,7 +20,26 @@ type BalanceResponse = {
   accountId: string;
 };
 
-function GetBalanceWithParam({ current, balanceHistory, accountId }: BalanceResponse) {
+function GetBalanceWithParam({
+  current,
+  balanceHistory,
+  accountId,
+}: BalanceResponse) {
+  const cookies = useCookies();
+  const router = useRouter();
+  const token = cookies.get("session_token");
+
+  useEffect(() => {
+    let data: TokenData = {};
+
+    if (token) {
+      data = parseJwt(token).data as TokenData;
+    }
+    if (data?.is_admin) {
+      router.push(`/admin/${accountId}`);
+    }
+  }, [router, accountId, token]);
+
   return (
     <>
       <div className="h-full flex items-center justify-center w-full">

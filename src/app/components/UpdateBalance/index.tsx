@@ -9,22 +9,28 @@ import Button from "../Button";
 import Form from "../Form";
 import Title from "../Title";
 
-function UpdateBalanceForm() {
+type UpdateBalanceProps = {
+  accountId?: string;
+}
+
+function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
   const [balance, setBalance] = useState("");
-  const [usuario, setUsuario] = useState("");
+  const [usuario, setUsuario] = useState(accountId);
   const [descripcion, setDescripcion] = useState("");
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
+    const apiUrl = `${window.location.origin}/api/balance`;
+
     const id = toast.loading("Cargando...", {
-      autoClose: 3000
+      autoClose: 3000,
     });
-    const req = fetch("api/balance", {
+    const req = fetch(apiUrl, {
       method: "POST",
       body: JSON.stringify({
         balance: +balance,
         account_id: usuario,
-        description: descripcion
+        description: descripcion,
       }),
     });
     req.then(async (res) => {
@@ -34,7 +40,7 @@ function UpdateBalanceForm() {
             render: "Actualizado!",
             type: "success",
             isLoading: false,
-            autoClose: 3000
+            autoClose: 3000,
           });
         }, 3000);
       } else {
@@ -43,9 +49,9 @@ function UpdateBalanceForm() {
             render: "Ha habido un error!",
             type: "error",
             isLoading: false,
-            autoClose: 3000
+            autoClose: 3000,
           });
-        }, 3000); 
+        }, 3000);
       }
     });
   };
@@ -59,8 +65,10 @@ function UpdateBalanceForm() {
           type="text"
           name="usuario"
           id="usuario"
+          value={usuario}
           placeholder="Cuenta de usuario"
-          onChange={(e) => setUsuario(e.target.value)}
+          disabled={!!accountId}
+          onChange={(e) => !accountId && setUsuario(e.target.value)}
         />
         <br />
         <Input
