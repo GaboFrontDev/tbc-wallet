@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/app/lib/prisma";
 import { createHash } from "node:crypto";
 import { SignJWT } from "jose";
-const prisma = new PrismaClient();
 
 type Payload = {
   password: string;

@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/app/lib/prisma";
 
 const ERROR_JSON = {
   success: false,
@@ -31,7 +29,6 @@ export async function GET(req: NextRequest) {
       account_id,
     }
   });
-  console.log(balanceHistory);
 
   return NextResponse.json({
     ...balance,

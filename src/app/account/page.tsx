@@ -8,8 +8,9 @@ const GetBalance = dynamic(() => import("@/app/components/GetBalance"), {
 export default function AccountBalancePage() {
   return (
     <>
-      <div>Account Balance Page</div>
-      <GetBalance />
+      <div className="flex justify-center items-center h-full w-8/12">
+        <GetBalance />
+      </div>
     </>
   );
 }

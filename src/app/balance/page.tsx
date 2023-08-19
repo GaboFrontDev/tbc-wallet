@@ -8,7 +8,7 @@ const CreateBalance = dynamic(() => import("@/app/components/CreateBalance"), {
 export default function CreateBlanace() {
   return (
     <>
-      <CreateBalance />
+      <CreateBalance url={process.env.ACCOUNTS_URL} />
     </>
   );
 }

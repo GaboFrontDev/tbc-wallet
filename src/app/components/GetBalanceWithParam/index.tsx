@@ -1,47 +1,75 @@
 "use client";
-import { useEffect, useState } from "react";
+import { format } from "date-fns";
+import { es } from "date-fns/esm/locale";
+import type { account_balance_history } from "@prisma/client";
+
+import Title from "../Title";
+import Subtitle from "../Subtitle";
 
 type BalanceResponse = {
   current: number;
-  balanceHistory: {
-    discount: string;
-  }[];
+  balanceHistory: account_balance_history[];
 };
 
-type GetBalanceProps = {
-  id: string;
-};
-
-function GetBalanceWithParam({ id }: GetBalanceProps) {
-  const [saldo, setSaldo] = useState(0);
-  const [historial, setHistorial] = useState<
-    {
-      discount: string;
-    }[]
-  >([]);
-
-  useEffect(() => {
-    if (!id) {
-      return;
-    }
-    fetch(`/api/balance?client_id=${id}`).then(async (res) => {
-      const data = (await res.json()) as BalanceResponse;
-      setSaldo(data?.current);
-      console.log(data);
-      setHistorial(data?.balanceHistory);
-    });
-  }, [id]);
-
+function GetBalanceWithParam({ current, balanceHistory }: BalanceResponse) {
   return (
     <>
-      <h1>Tu saldo: </h1>
-      <p>{saldo}</p>
-      <h2>Historial</h2>
-      <ol>
-        {historial?.map(({ discount }, index) => {
-          return <li key={`historial-${index}`}>Descuento registrada por la cantidad de {discount}</li>;
-        })}
-      </ol>
+      <div className="h-full flex items-center justify-center w-full">
+        <div className="w-10/12">
+          <Title className="text-[35px] drop-shadow">
+            <b>Saldo</b>
+          </Title>
+          <div className="bg-gray-400/50 rounded-lg p-5 shadow-lg">
+            <div className="flex justify-center w-full">
+              <div className="w-full">
+                <div>
+                  <Title className="bold text-[20px]">Usuario</Title>
+                </div>
+                <div className="h-20">
+                  <div className="bg-[#2ac48a] rounded-lg shadow-xl text-center">
+                    <Title className="text-[35px] drop-shadow">
+                      <b>${current}.00</b>
+                    </Title>
+                  </div>
+                  <Subtitle className="text-center">Saldo disponible</Subtitle>
+                </div>
+                <div className="w-full"></div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <Title className="text-[35px] drop-shadow">
+            <b>Historial</b>
+          </Title>
+          <div className="bg-gray-400/50 rounded-lg p-5 shadow-lg h-[300px] overflow-auto">
+            <div className="flex justify-center w-full">
+              <div className="w-full">
+                <div className="grid gird-cols-1 divide-y">
+                  {balanceHistory.map(({ discount, created_at }, index) => {
+                    return (
+                      <div key={`historial-${index}`} className="px-2">
+                        <div>
+                          <Title>
+                            <b>
+                              {format(created_at, "dd MMMMMMM yyyy", {
+                                locale: es,
+                              })}
+                            </b>
+                          </Title>
+                        </div>
+                        <div className="flex justify-between">
+                          <div>Descuento</div>
+                          <div>${discount}</div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
