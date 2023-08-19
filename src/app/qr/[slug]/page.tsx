@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 
 const QrTemplate = dynamic(() => import("@/app/components/QrTemplate"), {
-    ssr: true,
+    ssr: false,
     loading: () => <div>loading...</div>,
   });
   
