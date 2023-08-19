@@ -11,6 +11,7 @@ const ERROR_JSON = {
 type Payload = {
   balance: number;
   account_id: string;
+  description: string;
 };
 
 export async function GET(req: NextRequest) {
@@ -41,6 +42,7 @@ export async function POST(req: NextRequest) {
   const obj = {
     current: data.balance,
     account_id: data.account_id,
+    description: data.description,
   };
   const account = await prisma.account_balance.findUnique({
     where: {
@@ -74,6 +76,7 @@ export async function POST(req: NextRequest) {
     data: {
       account_id: obj.account_id,
       discount: data.balance,
+      description: data.description,
     },
   });
   return NextResponse.json({

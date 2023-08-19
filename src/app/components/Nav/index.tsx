@@ -34,12 +34,19 @@ export default function Nav() {
   if (token) {
     data = parseJwt(token).data as TokenData;
   }
+  if(!data?.is_admin) {
+    return <></>
+  }
   return (
+
     <div className="my-2 flex">
       <LinkWithActiveClass href="/account">Consultar Saldo</LinkWithActiveClass>
-      {data?.is_admin && <LinkWithActiveClass href="/balance">
+      <LinkWithActiveClass href="/balance">
         Crear nueva cuenta
-      </LinkWithActiveClass>}
+      </LinkWithActiveClass>
+      <LinkWithActiveClass href="/admin">
+        Cobrar
+      </LinkWithActiveClass>
     </div>
   );
 }

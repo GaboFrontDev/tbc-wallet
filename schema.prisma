@@ -27,5 +27,6 @@ model account_balance_history {
     id String @unique @default(uuid())
     account_id String
     discount Int
-    created_at DateTime @default(now()) 
+    created_at DateTime @default(now())
+    description String @default("Sin descripcion")
 }

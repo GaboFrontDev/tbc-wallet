@@ -12,6 +12,7 @@ import Title from "../Title";
 function UpdateBalanceForm() {
   const [balance, setBalance] = useState("");
   const [usuario, setUsuario] = useState("");
+  const [descripcion, setDescripcion] = useState("");
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -23,6 +24,7 @@ function UpdateBalanceForm() {
       body: JSON.stringify({
         balance: +balance,
         account_id: usuario,
+        description: descripcion
       }),
     });
     req.then(async (res) => {
@@ -68,6 +70,15 @@ function UpdateBalanceForm() {
           id="balance"
           placeholder="Cantidad a descontar"
           onChange={(e) => setBalance(e.target.value)}
+        />
+        <br />
+        <Input
+          className="text-black"
+          type="text"
+          name="description"
+          id="description"
+          placeholder="Descripcion del descuento"
+          onChange={(e) => setDescripcion(e.target.value)}
         />
         <br />
         <Button type="submit">Actualizar</Button>

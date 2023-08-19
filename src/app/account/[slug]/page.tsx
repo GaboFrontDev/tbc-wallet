@@ -37,7 +37,8 @@ export default async function AccountBalancePageWithId({
     <>
       <GetBalanceWithParam
         current={userBalance?.current || 0}
-        balanceHistory={balanceHistory || []}
+        balanceHistory={balanceHistory.reverse() || []}
+        accountId={params.slug}
       />
     </>
   );

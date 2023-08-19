@@ -9,9 +9,10 @@ import Subtitle from "../Subtitle";
 type BalanceResponse = {
   current: number;
   balanceHistory: account_balance_history[];
+  accountId: string;
 };
 
-function GetBalanceWithParam({ current, balanceHistory }: BalanceResponse) {
+function GetBalanceWithParam({ current, balanceHistory, accountId }: BalanceResponse) {
   return (
     <>
       <div className="h-full flex items-center justify-center w-full">
@@ -24,6 +25,7 @@ function GetBalanceWithParam({ current, balanceHistory }: BalanceResponse) {
               <div className="w-full">
                 <div>
                   <Title className="bold text-[20px]">Usuario</Title>
+                  <Subtitle className="text-[12px]">{accountId}</Subtitle>
                 </div>
                 <div className="h-20">
                   <div className="bg-[#2ac48a] rounded-lg shadow-xl text-center">
@@ -45,25 +47,29 @@ function GetBalanceWithParam({ current, balanceHistory }: BalanceResponse) {
             <div className="flex justify-center w-full">
               <div className="w-full">
                 <div className="grid gird-cols-1 divide-y">
-                  {balanceHistory.map(({ discount, created_at }, index) => {
-                    return (
-                      <div key={`historial-${index}`} className="px-2">
-                        <div>
-                          <Title>
-                            <b>
-                              {format(created_at, "dd MMMMMMM yyyy", {
-                                locale: es,
-                              })}
-                            </b>
-                          </Title>
+                  {balanceHistory.map(
+                    ({ discount, created_at, description }, index) => {
+                      return (
+                        <div key={`historial-${index}`} className="px-2">
+                          <div className="my-4">
+                            <div>
+                              <Title>
+                                <b>
+                                  {format(created_at, "dd MMMMMMM yyyy", {
+                                    locale: es,
+                                  })}
+                                </b>
+                              </Title>
+                            </div>
+                            <div className="flex justify-between">
+                              <div>{description}</div>
+                              <div>$ {discount}</div>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex justify-between">
-                          <div>Descuento</div>
-                          <div>${discount}</div>
-                        </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    }
+                  )}
                 </div>
               </div>
             </div>
