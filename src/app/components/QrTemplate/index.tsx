@@ -6,7 +6,7 @@ export default function QrTemplate({ id, url }: { id?: string; url?: string }) {
   return (
     <>
       <div className="fixed top-0 left-0 w-full h-full">
-        <QrImage>
+        <QrImage url={`${url}/${id}`}>
           <QRCode
             size={130}
             style={{
