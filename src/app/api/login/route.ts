@@ -8,9 +8,10 @@ type Payload = {
   email: string;
 };
 
+const privateKey = process.env["JWT_SECRET"] || "";
+
 export async function POST(req: NextRequest) {
   const data: Payload = await req.json();
-  const privateKey = process.env["JWT_SECRET"] || "";
   const obj = {
     email: data.email,
     password: createHash("sha256").update(data.password).digest("base64"),

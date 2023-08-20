@@ -4,6 +4,7 @@ import { prisma } from "@/app/lib/prisma";
 
 type Payload = {
   current: number;
+  phone: string;
 };
 
 export async function GET(Request: NextRequest) {
@@ -19,6 +20,7 @@ export async function POST(req: NextRequest) {
   const obj = {
     current: data.current,
     account_id: uid(),
+    phone: data.phone.toLowerCase(),
   };
   const balance = await prisma.account_balance.create({ data: obj });
   return NextResponse.json(

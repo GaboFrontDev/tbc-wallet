@@ -34,8 +34,14 @@ export async function loginMiddleware(request: NextRequest) {
   return res;
 }
 
-export async function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {  
   if (request.nextUrl.pathname.startsWith("/admin")) {
+    return adminMiddleware(request);
+  }
+  if (request.nextUrl.pathname.startsWith("/admin/:slug")) {
+    return adminMiddleware(request);
+  }
+  if (request.nextUrl.pathname.startsWith("/search")) {
     return adminMiddleware(request);
   }
   if (request.nextUrl.pathname.startsWith("/login")) {
@@ -50,5 +56,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin", "/balance", "/create_balance", "/login"],
+  matcher: ["/admin", "/admin/(.*)", "/balance", "/create_balance", "/login", "/search"],
 };

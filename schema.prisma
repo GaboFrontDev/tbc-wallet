@@ -20,8 +20,8 @@ model account_balance {
     id String @unique @default(uuid())
     account_id String @unique
     current Int
+    phone String?
 }
-
 
 model account_balance_history {
     id String @unique @default(uuid())

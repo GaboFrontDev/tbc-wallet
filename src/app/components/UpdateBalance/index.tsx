@@ -17,13 +17,18 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
   const [balance, setBalance] = useState("");
   const [usuario, setUsuario] = useState(accountId);
   const [descripcion, setDescripcion] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = (event: FormEvent) => {
+    if(loading) {
+      return;
+    }
     event.preventDefault();
+    setLoading(true);
     const apiUrl = `${window.location.origin}/api/balance`;
 
     const id = toast.loading("Cargando...", {
-      autoClose: 3000,
+      autoClose: 1500,
     });
     const req = fetch(apiUrl, {
       method: "POST",
@@ -35,6 +40,9 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
     });
     req.then(async (res) => {
       if (res?.ok) {
+        setBalance("");
+        setDescripcion("");
+        setUsuario(accountId || "");
         setTimeout(() => {
           toast.update(id, {
             render: "Actualizado!",
@@ -42,7 +50,8 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
             isLoading: false,
             autoClose: 3000,
           });
-        }, 3000);
+          setLoading(false);
+        }, 1500);
       } else {
         setTimeout(() => {
           toast.update(id, {
@@ -51,7 +60,8 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
             isLoading: false,
             autoClose: 3000,
           });
-        }, 3000);
+          setLoading(false);
+        }, 1500);
       }
     });
   };
@@ -77,6 +87,7 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
           name="balance"
           id="balance"
           placeholder="Cantidad a descontar"
+          value={balance}
           onChange={(e) => setBalance(e.target.value)}
         />
         <br />
@@ -86,10 +97,11 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
           name="description"
           id="description"
           placeholder="Descripcion del descuento"
+          value={descripcion}
           onChange={(e) => setDescripcion(e.target.value)}
         />
         <br />
-        <Button type="submit">Actualizar</Button>
+        <Button type="submit" disabled={loading}>Actualizar</Button>
       </Form>
       <ToastContainer
         closeOnClick
