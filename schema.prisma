@@ -21,6 +21,7 @@ model account_balance {
     account_id String @unique
     current Int
     phone String?
+    created_at DateTime @default(now())
 }
 
 model account_balance_history {

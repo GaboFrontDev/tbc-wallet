@@ -1,4 +1,3 @@
-import Image from "next/image";
 import QrImage from "./QrSvg";
 import QRCode from "react-qr-code";
 
