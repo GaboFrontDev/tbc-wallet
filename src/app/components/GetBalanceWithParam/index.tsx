@@ -66,7 +66,7 @@ function GetBalanceWithParam({
           </div>
           <br />
           <Title className="text-[35px] drop-shadow">
-            <b>Historial</b>
+            <b>Tus Compras</b>
           </Title>
           <div className="bg-gray-400/50 rounded-lg p-5 shadow-lg h-[300px] overflow-auto">
             <div className="flex justify-center w-full">
