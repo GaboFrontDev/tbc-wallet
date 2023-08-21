@@ -18,19 +18,12 @@ function GetBalanceWithParam({
 
   const SaldoContainer = () => (
     <div className="flex justify-center w-full">
-      <div className="w-full">
-        <div>
-          <Title className="bold text-[20px]">Usuario</Title>
+      <div className="w-full h-15">
+        <div className="bg-[#2ac48a] rounded-lg shadow-xl text-center">
+          <Title className="text-[35px] drop-shadow">
+            <b>${current}.00</b>
+          </Title>
         </div>
-        <div className="h-20">
-          <div className="bg-[#2ac48a] rounded-lg shadow-xl text-center">
-            <Title className="text-[35px] drop-shadow">
-              <b>${current}.00</b>
-            </Title>
-          </div>
-          <Subtitle className="text-center">Saldo disponible</Subtitle>
-        </div>
-        <div className="w-full"></div>
       </div>
     </div>
   );
@@ -66,7 +59,7 @@ function GetBalanceWithParam({
       <div className="h-full flex items-center justify-center w-full">
         <div className="w-10/12">
           <Title className="text-[35px] drop-shadow">
-            <b>Saldo</b>
+            <b>Saldo Disponible</b>
           </Title>
           <div className="bg-gray-400/50 rounded-lg p-5 shadow-lg">
             <SaldoContainer />
