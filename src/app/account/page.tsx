@@ -17,15 +17,13 @@ export default async function AccountBalancePage() {
       </div>
     );
   }
-  return <BalanaceWithParam data={data} token={account_token} />;
+  return <BalanaceWithParam data={data} />;
 }
 
 async function BalanaceWithParam({
   data,
-  token,
 }: {
   data: account_balance;
-  token: string;
 }) {
   const [userBalance, balanceHistory] = await Promise.all([
     prisma.account_balance.findUnique({

@@ -23,7 +23,6 @@ function GetBalanceWithParam({
       <div className="w-full">
         <div>
           <Title className="bold text-[20px]">Usuario</Title>
-          <Subtitle className="text-[12px]">{accountId}</Subtitle>
         </div>
         <div className="h-20">
           <div className="bg-[#2ac48a] rounded-lg shadow-xl text-center">
