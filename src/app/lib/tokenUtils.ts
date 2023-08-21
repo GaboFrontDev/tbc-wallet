@@ -9,7 +9,7 @@ export const createLoginToken = async (data: user) => {
       console.log("Error: setup a JWT_SECRET in ENV");
     }
     const iat = Math.floor(Date.now() / 1000);
-    const exp = iat + 60 * 60; // one hour
+    const exp = iat + 60 * 60 * 24; // one day
     const token = await new SignJWT({
       data: {
         ...data,
