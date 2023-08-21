@@ -38,7 +38,6 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  console.log("hi")
   const data: Payload = await req.json();
   const obj = {
     current: data.balance,

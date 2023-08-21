@@ -1,11 +1,15 @@
-import QrImage from "./QrSvg";
+"use client";
+import React from "react";
 import QRCode from "react-qr-code";
 
-export default function QrTemplate({ id, url }: { id?: string; url?: string }) {
+import QrImage from "./QrSvg";
+import Link from "next/link";
+
+export default function QrTemplate({ url }: { url?: string }) {
   return (
     <>
       <div className="fixed top-0 left-0 w-full h-full">
-        <QrImage url={`${url}/${id}`}>
+        <QrImage link={<Link href={url || ""}>Ver Saldo</Link>}>
           <QRCode
             size={130}
             style={{
@@ -13,7 +17,7 @@ export default function QrTemplate({ id, url }: { id?: string; url?: string }) {
               maxWidth: "100%",
               width: "100%",
             }}
-            value={`${url}/${id}`}
+            value={url || ""}
             viewBox={`0 0 128 128`}
           />
         </QrImage>

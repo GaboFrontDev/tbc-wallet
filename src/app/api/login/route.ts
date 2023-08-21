@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/app/lib/prisma";
 import { createHash } from "node:crypto";
-import { SignJWT } from "jose";
+import { createLoginToken } from "@/app/lib/tokenUtils";
 
 type Payload = {
   password: string;
   email: string;
 };
-
-const privateKey = process.env["JWT_SECRET"] || "";
 
 export async function POST(req: NextRequest) {
   const data: Payload = await req.json();
@@ -43,22 +41,7 @@ export async function POST(req: NextRequest) {
       }
     );
   }
-  if (!privateKey.length) {
-    console.log("Error: setup a JWT_SECRET in ENV");
-  }
-  const iat = Math.floor(Date.now() / 1000);
-  const exp = iat + 60 * 60; // one hour
-  const token = await new SignJWT({
-    data: {
-      ...user,
-      password: null,
-    },
-  })
-    .setProtectedHeader({ alg: "HS256", typ: "JWT" })
-    .setExpirationTime(exp)
-    .setIssuedAt(iat)
-    .setNotBefore(iat)
-    .sign(new TextEncoder().encode(privateKey));
+  const token = await createLoginToken(user);
   return NextResponse.json(
     {
       sucess: true,

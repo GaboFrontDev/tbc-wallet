@@ -1,12 +1,6 @@
 "use client";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { useCookies } from "next-client-cookies";
-import { parseJwt } from "@/app/lib/utils";
-
-type TokenData = {
-  is_admin?: boolean
-}
 
 const LinkWithActiveClass = ({
   href,
@@ -27,14 +21,8 @@ const LinkWithActiveClass = ({
   );
 };
 
-export default function Nav() {
-  const cookies = useCookies();
-  const token = cookies.get("session_token");
-  let data: TokenData = {};
-  if (token) {
-    data = parseJwt(token).data as TokenData;
-  }
-  if(!data?.is_admin) {
+export default function Nav({isAdmin}: {isAdmin: boolean}) {
+  if(!isAdmin) {
     return <></>
   }
   return (

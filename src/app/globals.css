@@ -12,11 +12,11 @@
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-end-rgb: black;
-    --background-start-rgb: gray;
+    --background-start-rgb: black;
   }
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: gray
+  background: black
 }

@@ -1,13 +1,11 @@
 import { LogoBase64 } from "./consts";
-import Link from "next/link";
 
 export type SvgProps = React.ComponentProps<'svg'> & {
-  url?: string;
+  link: JSX.Element;
 };
 
 export default function QrSvg(props: SvgProps) {
-  const { children, url } = props;
-  console.log(url)
+  const { children, link } = props;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -269,7 +267,7 @@ export default function QrSvg(props: SvgProps) {
               fontWeight="800"
             >
               <tspan x="-49.689" y="0">
-                <Link href={url || ""}>Ver Saldo</Link>
+                {link}
               </tspan>
             </text>
           </g>

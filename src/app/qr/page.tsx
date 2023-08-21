@@ -1,14 +1,14 @@
-import dynamic from "next/dynamic";
+import { cookies } from "next/headers";
+import { account_balance } from "@prisma/client";
+import QrTemplate from "@/app/components/QrTemplate";
+import isAuthorized from "../lib/isAuthorized";
 
-const QrTemplate = dynamic(() => import("@/app/components/QrTemplate"), {
-  ssr: true,
-  loading: () => <div>loading...</div>,
-});
+export default async function QRPage() {
+  const cookieStore = cookies();
+  const account_token = cookieStore.get("account_token")?.value || "";
+  const data = (await isAuthorized(account_token)) as account_balance;
 
-export default function QRPage() {
   return (
-    <>
-      <QrTemplate></QrTemplate>
-    </>
+    <QrTemplate url={`${process.env.ACCOUNT_BALANCE_URL}/${data.account_id}`} />
   );
 }

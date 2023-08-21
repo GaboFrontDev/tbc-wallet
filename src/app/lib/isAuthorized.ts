@@ -1,13 +1,12 @@
 import { jwtVerify } from "jose";
-import { NextRequest } from "next/server";
 
-async function isAuthorized(token: string, req: NextRequest) {
+async function isAuthorized(token: string) {
   const privateKey = process.env["JWT_SECRET"] || "";  
   let result = null;
   try {
     result = await jwtVerify(token, new TextEncoder().encode(privateKey));
   } catch (error) {
-    console.log(error);
+    console.log("not authorized");
   }
   
   return result?.payload.data;

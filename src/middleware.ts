@@ -1,29 +1,70 @@
 import { NextResponse, type NextRequest } from "next/server";
 import isAuthorized from "@/app/lib/isAuthorized";
+import { createAccountToken, createLoginToken } from "./app/lib/tokenUtils";
 
-interface User {
-  id: string;
-  email: string;
-  first_name: string | null;
-  last_name: string | null;
-  is_admin: boolean;
+export async function accountMiddleware(
+  request: NextRequest,
+  response: NextResponse
+) {
+  const account_token = request.cookies.get("account_token")?.value || "";
+  const authorizedData = (await isAuthorized(account_token)) as any;
+  if (!authorizedData?.account_id) {
+    console.log({ message: "deleting" });
+    response.cookies.delete("account_token");
+  }
+  return response;
+}
+
+export async function qrMiddleware(request: NextRequest) {
+  const account_token = request.cookies.get("account_token")?.value || "";
+  const authorizedData = (await isAuthorized(account_token)) as any;
+
+  const params = request.nextUrl.pathname
+    .split("/")
+    .filter((str) => str !== "");
+
+  const account_id = params[1];
+
+  if (authorizedData?.account_id && !account_id) {
+    const response = NextResponse.next();
+    return accountMiddleware(request, response);
+  }
+  if (!account_id) {
+    const response = NextResponse.redirect(new URL("/account", request.url));
+    return accountMiddleware(request, response);
+  }
+
+  const token = await createAccountToken(account_id)
+  const response = NextResponse.redirect(new URL("/qr", request.url));
+  response.cookies.set({
+    name: "account_token",
+    value: token,
+  });
+  return response;
 }
 
 export async function adminMiddleware(request: NextRequest) {
   const session_token = request.cookies.get("session_token")?.value || "";
-  const authorizedData = (await isAuthorized(session_token, request)) as User;
+  const authorizedData = (await isAuthorized(session_token)) as any;
 
   if (!authorizedData?.is_admin) {
     // Respond with JSON indicating an error message
-    const res = NextResponse.next();
+    const res = NextResponse.redirect(new URL("/login", request.url));
     res.cookies.delete("session_token");
-    return NextResponse.redirect(new URL("/login", request.url));
+    return accountMiddleware(request, res);
   }
+  const response = NextResponse.next();
+  const token = await createLoginToken(authorizedData);
+  response.cookies.set({
+    name: "session_token",
+    value: token,
+  });
+  return response;
 }
 
 export async function loginMiddleware(request: NextRequest) {
   const session_token = request.cookies.get("session_token")?.value || "";
-  const isLoggedIn = (await isAuthorized(session_token, request)) as User;
+  const isLoggedIn = (await isAuthorized(session_token)) as any;
 
   if (isLoggedIn) {
     // Respond with JSON indicating an error message
@@ -31,14 +72,14 @@ export async function loginMiddleware(request: NextRequest) {
   }
   const res = NextResponse.next();
   res.cookies.delete("session_token");
-  return res;
+  return accountMiddleware(request, res);
 }
 
-export async function middleware(request: NextRequest) {  
-  if (request.nextUrl.pathname.startsWith("/admin")) {
-    return adminMiddleware(request);
+export async function middleware(request: NextRequest) {
+  if (request.nextUrl.pathname.startsWith("/qr")) {
+    return qrMiddleware(request);
   }
-  if (request.nextUrl.pathname.startsWith("/admin/:slug")) {
+  if (request.nextUrl.pathname.startsWith("/admin")) {
     return adminMiddleware(request);
   }
   if (request.nextUrl.pathname.startsWith("/search")) {
@@ -56,5 +97,15 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin", "/admin/(.*)", "/balance", "/create_balance", "/login", "/search"],
+  matcher: [
+    "/",
+    "/qr",
+    "/qr/(.*)",
+    "/admin",
+    "/admin/(.*)",
+    "/balance",
+    "/create_balance",
+    "/login",
+    "/search",
+  ],
 };

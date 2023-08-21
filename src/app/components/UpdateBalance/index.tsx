@@ -11,7 +11,9 @@ import Title from "../Title";
 
 type UpdateBalanceProps = {
   accountId?: string;
-}
+};
+
+const flexContainerClass = "flex items-center justify-center w-full";
 
 function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
   const [balance, setBalance] = useState("");
@@ -20,7 +22,7 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
   const [loading, setLoading] = useState(false);
 
   const onSubmit = (event: FormEvent) => {
-    if(loading) {
+    if (loading) {
       return;
     }
     event.preventDefault();
@@ -68,47 +70,57 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
 
   return (
     <>
-      <Form onSubmit={onSubmit}>
-        <Title className="my-3 mx-2">Descuento de saldo</Title>
-        <Input
-          className="text-black"
-          type="text"
-          name="usuario"
-          id="usuario"
-          value={usuario}
-          placeholder="Cuenta de usuario"
-          disabled={!!accountId}
-          onChange={(e) => !accountId && setUsuario(e.target.value)}
-        />
-        <br />
-        <Input
-          className="text-black"
-          type="number"
-          name="balance"
-          id="balance"
-          placeholder="Cantidad a descontar"
-          value={balance}
-          onChange={(e) => setBalance(e.target.value)}
-        />
-        <br />
-        <Input
-          className="text-black"
-          type="text"
-          name="description"
-          id="description"
-          placeholder="Descripcion del descuento"
-          value={descripcion}
-          onChange={(e) => setDescripcion(e.target.value)}
-        />
-        <br />
-        <Button type="submit" disabled={loading}>Actualizar</Button>
-      </Form>
-      <ToastContainer
-        closeOnClick
-        position="bottom-center"
-        autoClose={3000}
-        hideProgressBar={false}
-      />
+      <main className={`${flexContainerClass} h-full`}>
+        <div className="w-10/12">
+          <div
+            className={`${flexContainerClass} bg-gray-400/50 rounded-lg p-5 my-4 shadow-lg`}
+          >
+            <Form onSubmit={onSubmit}>
+              <Title className="my-3 mx-2">Descuento de saldo</Title>
+              <Input
+                className="text-black h-[60px] rounded-lg"
+                type="text"
+                name="usuario"
+                id="usuario"
+                value={usuario}
+                placeholder="Cuenta de usuario"
+                disabled={!!accountId}
+                onChange={(e) => !accountId && setUsuario(e.target.value)}
+              />
+              <br />
+              <Input
+                className="text-black h-[60px] rounded-lg"
+                type="number"
+                name="balance"
+                id="balance"
+                placeholder="Cantidad a descontar"
+                value={balance}
+                onChange={(e) => setBalance(e.target.value)}
+              />
+              <br />
+              <Input
+                className="text-black h-[60px] rounded-lg"
+                type="text"
+                name="description"
+                id="description"
+                placeholder="Descripcion del descuento"
+                value={descripcion}
+                onChange={(e) => setDescripcion(e.target.value)}
+              />
+              <br />
+              <Button type="submit" disabled={loading}>
+                Actualizar
+              </Button>
+            </Form>
+            <ToastContainer
+              closeOnClick
+              position="bottom-center"
+              autoClose={3000}
+              hideProgressBar={false}
+            />
+          </div>
+        </div>
+      </main>
     </>
   );
 }
