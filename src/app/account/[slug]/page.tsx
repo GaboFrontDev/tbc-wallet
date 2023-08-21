@@ -55,7 +55,6 @@ export default async function AccountBalancePageWithId({
         current={userBalance?.current || 0}
         balanceHistory={balanceHistory || []}
         accountId={params.slug}
-        token={sessionToken}
       />
     </>
   );
