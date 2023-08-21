@@ -9,6 +9,6 @@ export default async function QRPage() {
   const data = (await isAuthorized(account_token)) as account_balance;
 
   return (
-    <QrTemplate url={`${process.env.ACCOUNT_BALANCE_URL}/${data.account_id}`} />
+    <QrTemplate url={`${process.env.ACCOUNT_BALANCE_URL}/${data.account_id}`} linkUrl={process.env.ACCOUNT_BALANCE_URL || ""} />
   );
 }

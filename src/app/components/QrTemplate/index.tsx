@@ -5,11 +5,17 @@ import QRCode from "react-qr-code";
 import QrImage from "./QrSvg";
 import Link from "next/link";
 
-export default function QrTemplate({ url }: { url?: string }) {
+export default function QrTemplate({
+  url,
+  linkUrl,
+}: {
+  url?: string;
+  linkUrl: string;
+}) {
   return (
     <>
       <div className="fixed top-0 left-0 w-full h-full">
-        <QrImage link={<Link href={url || ""}>Ver Saldo</Link>}>
+        <QrImage link={<Link href={linkUrl}>Ver Saldo</Link>}>
           <QRCode
             size={130}
             style={{

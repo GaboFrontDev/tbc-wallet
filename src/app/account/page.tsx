@@ -1,19 +1,10 @@
-import dynamic from "next/dynamic";
 import { cookies } from "next/headers";
-import isAuthorized from "../lib/isAuthorized";
 import { account_balance } from "@prisma/client";
+import GetBalance from "@/app/components/GetBalance";
+import GetBalanceWithParam from "@/app/components/GetBalanceWithParam";
+
+import isAuthorized from "../lib/isAuthorized";
 import { prisma } from "../lib/prisma";
-const GetBalance = dynamic(() => import("@/app/components/GetBalance"), {
-  ssr: true,
-  loading: () => <div>loading...</div>,
-});
-const GetBalanceWithParam = dynamic(
-  () => import("@/app/components/GetBalanceWithParam"),
-  {
-    ssr: false,
-    loading: () => <div>loading...</div>,
-  }
-);
 
 export default async function AccountBalancePage() {
   const cookieStore = cookies();
@@ -26,6 +17,16 @@ export default async function AccountBalancePage() {
       </div>
     );
   }
+  return <BalanaceWithParam data={data} token={account_token} />;
+}
+
+async function BalanaceWithParam({
+  data,
+  token,
+}: {
+  data: account_balance;
+  token: string;
+}) {
   const [userBalance, balanceHistory] = await Promise.all([
     prisma.account_balance.findUnique({
       where: {
@@ -49,7 +50,6 @@ export default async function AccountBalancePage() {
       current={userBalance?.current || 0}
       balanceHistory={balanceHistory || []}
       accountId={data.account_id}
-      token={account_token}
     />
   );
 }

@@ -9,7 +9,6 @@ import Button from "../Button";
 import Form from "../Form";
 import Title from "../Title";
 
-
 function GetBalance() {
   const router = useRouter();
   const [clientID, setClientID] = useState("");
@@ -18,12 +17,11 @@ function GetBalance() {
     event.preventDefault();
     toast.loading("Cargando...");
     fetch(`/api/balance?client_id=${clientID}`).then(async (res) => {
-      if(res.ok) {
+      if (res.ok) {
         router.push(`account/${clientID}`);
       }
     });
   };
-
 
   return (
     <>
@@ -40,11 +38,11 @@ function GetBalance() {
         <Button type="submit">Consultar</Button>
       </Form>
       <ToastContainer
-          closeOnClick
-          position="bottom-center"
-          autoClose={3000}
-          hideProgressBar={false}
-        />
+        closeOnClick
+        position="bottom-center"
+        autoClose={3000}
+        hideProgressBar={false}
+      />
     </>
   );
 }

@@ -1,44 +1,22 @@
-"use client";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import { es } from "date-fns/esm/locale";
 import type { account_balance_history } from "@prisma/client";
-import { parseJwt } from "@/app/lib/utils";
 
 import Title from "../Title";
 import Subtitle from "../Subtitle";
-
-type TokenData = {
-  is_admin?: boolean;
-};
 
 type BalanceResponse = {
   current: number;
   balanceHistory: account_balance_history[];
   accountId: string;
-  token: string;
 };
 
 function GetBalanceWithParam({
   current,
   balanceHistory,
   accountId,
-  token
 }: BalanceResponse) {
-  const router = useRouter();
 
-  
-  useEffect(() => {
-    let data: TokenData = {};
-
-    if (token) {
-      data = parseJwt(token).data as TokenData;
-    }
-    if (data?.is_admin) {
-      router.push(`/admin/${accountId}`);
-    }
-  }, [router, accountId, token]);
 
   const SaldoContainer = () => (
     <div className="flex justify-center w-full">
