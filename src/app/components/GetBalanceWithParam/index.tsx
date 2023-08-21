@@ -8,13 +8,11 @@ import Subtitle from "../Subtitle";
 type BalanceResponse = {
   current: number;
   balanceHistory: account_balance_history[];
-  accountId: string;
 };
 
 function GetBalanceWithParam({
   current,
   balanceHistory,
-  accountId,
 }: BalanceResponse) {
 
 

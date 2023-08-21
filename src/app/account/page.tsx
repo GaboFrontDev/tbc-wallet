@@ -47,7 +47,6 @@ async function BalanaceWithParam({
     <GetBalanceWithParam
       current={userBalance?.current || 0}
       balanceHistory={balanceHistory || []}
-      accountId={data.account_id}
     />
   );
 }
