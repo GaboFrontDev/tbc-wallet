@@ -39,7 +39,7 @@ networks:
   default:
     driver: bridge
   proxy-net:
-    name: ${PROJECT_SLUG}_external
+    name: strapi_boilerplate_external
     external: true
 
 
