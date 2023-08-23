@@ -13,6 +13,7 @@ services:
       - tbc-mysql
     networks:
       - default
+      - proxy-net
   tbc-mysql:
       image: mysql:5.7
       container_name: tbc-mysql
@@ -25,6 +26,8 @@ services:
       restart: unless-stopped
       ports:
         - 3310:3306
+      networks:
+        - default
       volumes:
         - mysql-data:/var/lib/mysql
 
@@ -35,6 +38,9 @@ volumes:
 networks:
   default:
     driver: bridge
+  proxy-net:
+    name: ${PROJECT_SLUG}_external
+    external: true
 
 
 
