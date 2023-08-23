@@ -11,6 +11,8 @@ services:
       - 3010:3000
     depends_on:
       - tbc-mysql
+    networks:
+      - default
   tbc-mysql:
       image: mysql:5.7
       container_name: tbc-mysql
