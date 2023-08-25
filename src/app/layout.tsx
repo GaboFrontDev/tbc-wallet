@@ -6,8 +6,9 @@ import { cookies } from 'next/headers'
 import { user } from '@prisma/client'
 
 import isAuthorized from './lib/isAuthorized'
-import Nav from '@/app/components/Nav'
+import Nav from './components/Nav'
 import BackgroundImg from './components/Background/BackgroundImg'
+import Footer from './components/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -37,7 +38,7 @@ export default async function RootLayout({
           {children}
         </div>
         <Nav isAdmin={data?.is_admin} />
-
+        <Footer />
       </body>
     </html>
   )
