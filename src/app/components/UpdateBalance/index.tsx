@@ -8,6 +8,8 @@ import { ToastContainer, toast } from "react-toastify";
 import Button from "../Button";
 import Form from "../Form";
 import Title from "../Title";
+import QrCodeScanner from "../QrCodeScanner";
+import { useRouter } from "next/navigation";
 
 type UpdateBalanceProps = {
   accountId?: string;
@@ -20,6 +22,7 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
   const [usuario, setUsuario] = useState(accountId);
   const [descripcion, setDescripcion] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const onSubmit = (event: FormEvent) => {
     if (loading) {
@@ -42,10 +45,10 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
     });
     req.then(async (res) => {
       if (res?.ok) {
-        setBalance("");
-        setDescripcion("");
-        setUsuario(accountId || "");
         setTimeout(() => {
+          setBalance("");
+          setDescripcion("");
+          setUsuario("");
           toast.update(id, {
             render: "Actualizado!",
             type: "success",
@@ -53,6 +56,9 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
             autoClose: 3000,
           });
           setLoading(false);
+          setTimeout(() => {
+            location.href = "../admin";
+          }, 2000);
         }, 1500);
       } else {
         setTimeout(() => {
@@ -75,49 +81,62 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
           <div
             className={`${flexContainerClass} bg-gray-400/50 rounded-lg p-5 my-4 shadow-lg`}
           >
-            <Form onSubmit={onSubmit}>
-              <Title className="my-3 mx-2">Descuento de saldo</Title>
-              <Input
-                className="text-black h-[60px] rounded-lg"
-                type="text"
-                name="usuario"
-                id="usuario"
-                value={usuario}
-                placeholder="Cuenta de usuario"
-                disabled={!!accountId}
-                onChange={(e) => !accountId && setUsuario(e.target.value)}
-              />
-              <br />
-              <Input
-                className="text-black h-[60px] rounded-lg"
-                type="number"
-                name="balance"
-                id="balance"
-                placeholder="Cantidad a descontar"
-                value={balance}
-                onChange={(e) => setBalance(e.target.value)}
-              />
-              <br />
-              <Input
-                className="text-black h-[60px] rounded-lg"
-                type="text"
-                name="description"
-                id="description"
-                placeholder="Descripcion del descuento"
-                value={descripcion}
-                onChange={(e) => setDescripcion(e.target.value)}
-              />
-              <br />
-              <Button type="submit" disabled={loading}>
-                Actualizar
-              </Button>
-            </Form>
-            <ToastContainer
-              closeOnClick
-              position="bottom-center"
-              autoClose={3000}
-              hideProgressBar={false}
-            />
+            {!accountId && (
+              <>
+                <div>
+                  <Title className="text-[30px]">Escanea Cuenta</Title>
+                  <QrCodeScanner url="admin" />
+                </div>
+              </>
+            )}
+
+            {accountId && (
+              <>
+                <Form onSubmit={onSubmit}>
+                  <Title className="my-3 mx-2">Descuento de saldo</Title>
+                  <Input
+                    className="text-black h-[60px] rounded-lg"
+                    type="text"
+                    name="usuario"
+                    id="usuario"
+                    value={usuario}
+                    placeholder="Cuenta de usuario"
+                    disabled={!!accountId}
+                    onChange={(e) => !accountId && setUsuario(e.target.value)}
+                  />
+                  <br />
+                  <Input
+                    className="text-black h-[60px] rounded-lg"
+                    type="number"
+                    name="balance"
+                    id="balance"
+                    placeholder="Cantidad a descontar"
+                    value={balance}
+                    onChange={(e) => setBalance(e.target.value)}
+                  />
+                  <br />
+                  <Input
+                    className="text-black h-[60px] rounded-lg"
+                    type="text"
+                    name="description"
+                    id="description"
+                    placeholder="Descripcion del descuento"
+                    value={descripcion}
+                    onChange={(e) => setDescripcion(e.target.value)}
+                  />
+                  <br />
+                  <Button type="submit" disabled={loading}>
+                    Actualizar
+                  </Button>
+                </Form>
+                <ToastContainer
+                  closeOnClick
+                  position="bottom-center"
+                  autoClose={3000}
+                  hideProgressBar={false}
+                />
+              </>
+            )}
           </div>
         </div>
       </main>

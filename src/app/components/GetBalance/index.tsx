@@ -26,12 +26,13 @@ function GetBalance() {
   return (
     <>
       <Form onSubmit={onSubmit}>
-        <Title className="my-3 mx-2">Saldo</Title>
+        <Title className="my-3 mx-2 text-[45px]">Consultar Saldo</Title>
         <Input
           type="text"
           className="text-black"
           name="client_id"
           title="client_id"
+          placeholder="ID de cuenta"
           onChange={(e) => setClientID(e.target.value)}
         />
         <br />

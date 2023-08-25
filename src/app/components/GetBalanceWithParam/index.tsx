@@ -3,32 +3,45 @@ import { es } from "date-fns/esm/locale";
 import type { account_balance_history } from "@prisma/client";
 
 import Title from "../Title";
-import Subtitle from "../Subtitle";
+import Link from "next/link";
+
+const defaultLinkClasses =
+"block text-center bg-black/80 hover:bg-gray-100 hover:text-black text-white  shadow shadow-lg font-semibold py-2 px-4 my-2 rounded-full w-full";
 
 type BalanceResponse = {
   current: number;
   balanceHistory: account_balance_history[];
+  accountFound: boolean
 };
 
 function GetBalanceWithParam({
   current,
   balanceHistory,
+  accountFound,
 }: BalanceResponse) {
 
 
   const SaldoContainer = () => (
     <div className="flex justify-center w-full">
       <div className="w-full h-15">
-        <div className="bg-[#2ac48a] rounded-lg shadow-xl text-center">
-          <Title className="text-[35px] drop-shadow">
-            <b>${current}.00</b>
-          </Title>
-        </div>
+        {accountFound ? (
+          <div className="bg-[#2ac48a] rounded-lg shadow-xl text-center">
+            <Title className="text-[35px] drop-shadow">
+              <b>${current}.00</b>
+            </Title>
+          </div>
+        ) : (
+          <div className="bg-[#3c3c3c] rounded-lg shadow-xl text-center">
+            <Title className="text-[20px  ] drop-shadow">
+              <b>La cuenta no existe</b>
+            </Title>
+          </div>
+        )}
       </div>
     </div>
   );
 
-  const HistoryContainer = () => (
+  const HistoryListContainer = () => (
     <div className="grid gird-cols-1 divide-y">
       {balanceHistory.map(({ discount, created_at, description }, index) => {
         return (
@@ -54,6 +67,27 @@ function GetBalanceWithParam({
     </div>
   );
 
+  const HistoryContainer = () => (
+    <>
+      <Title className="text-[35px] drop-shadow">
+        <b>Tus Compras</b>
+      </Title>
+      <div className="bg-gray-400/50 rounded-lg p-5 shadow-lg h-[300px] overflow-auto">
+        <div className="flex justify-center w-full">
+          <div className="w-full">
+            <HistoryListContainer />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+
+  const ToScan = () => (
+    <Link className={defaultLinkClasses} href={"/remove-account"}>
+      <b>Escanear código</b>
+    </Link>
+  );
+
   return (
     <>
       <div className="h-full flex items-center justify-center w-full">
@@ -65,16 +99,8 @@ function GetBalanceWithParam({
             <SaldoContainer />
           </div>
           <br />
-          <Title className="text-[35px] drop-shadow">
-            <b>Tus Compras</b>
-          </Title>
-          <div className="bg-gray-400/50 rounded-lg p-5 shadow-lg h-[300px] overflow-auto">
-            <div className="flex justify-center w-full">
-              <div className="w-full">
-                <HistoryContainer />
-              </div>
-            </div>
-          </div>
+          {accountFound && <HistoryContainer />}
+          {(!accountFound || current == 0) && <ToScan />}
         </div>
       </div>
     </>

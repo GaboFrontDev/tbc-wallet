@@ -1,13 +1,13 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import dynamic from 'next/dynamic'
 import { twMerge } from 'tailwind-merge'
 import { cookies } from 'next/headers'
 import { user } from '@prisma/client'
 
 import isAuthorized from './lib/isAuthorized'
 import Nav from '@/app/components/Nav'
+import BackgroundImg from './components/Background/BackgroundImg'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   description: 'Servicio de prepago',
 }
 
-const defaultBodyClasses = "h-screen bg-gray";
+const defaultBodyClasses = "h-screen bg-gray flex";
 
 export default async function RootLayout({
   children,
@@ -31,10 +31,13 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={classes}>
-        <Nav isAdmin={data?.is_admin}  />
-        <div className='h-full flex justify-center w-full'>
+        <div className='absolute w-full h-full backdrop-blur-md z-2'></div>
+        <BackgroundImg />
+        <div className='h-full flex justify-center w-full absolute z-3'>
           {children}
         </div>
+        <Nav isAdmin={data?.is_admin} />
+
       </body>
     </html>
   )

@@ -30,7 +30,7 @@ export async function qrMiddleware(request: NextRequest) {
     return accountMiddleware(request, response);
   }
   if (!account_id) {
-    const response = NextResponse.redirect(new URL("/account", request.url));
+    const response = NextResponse.redirect(new URL("/scan", request.url));
     return accountMiddleware(request, response);
   }
 
@@ -40,6 +40,20 @@ export async function qrMiddleware(request: NextRequest) {
     name: "account_token",
     value: token,
   });
+  return response;
+}
+
+export async function scanMiddleware(request: NextRequest) {
+  const account_token = request.cookies.get("account_token")?.value || "";
+  const authorizedData = (await isAuthorized(account_token)) as any;
+  if (authorizedData?.account_id ) {
+    return NextResponse.redirect(new URL("/qr", request.url));
+  }
+}
+
+export async function removeAccount(request: NextRequest) {
+  const response = NextResponse.redirect(new URL("/scan", request.url));
+  response.cookies.delete("account_token");
   return response;
 }
 
@@ -79,6 +93,12 @@ export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith("/qr")) {
     return qrMiddleware(request);
   }
+  if (request.nextUrl.pathname.startsWith("/scan")) {
+    return scanMiddleware(request);
+  }
+  if (request.nextUrl.pathname.startsWith("/remove-account")) {
+    return removeAccount(request);
+  }
   if (request.nextUrl.pathname.startsWith("/admin")) {
     return adminMiddleware(request);
   }
@@ -101,6 +121,8 @@ export const config = {
     "/",
     "/qr",
     "/qr/(.*)",
+    "/scan",
+    "/remove-account",
     "/admin",
     "/admin/(.*)",
     "/balance",
