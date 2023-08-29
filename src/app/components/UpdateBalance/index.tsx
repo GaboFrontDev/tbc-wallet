@@ -9,7 +9,6 @@ import Button from "../Button";
 import Form from "../Form";
 import Title from "../Title";
 import QrCodeScanner from "../QrCodeScanner";
-import { useRouter } from "next/navigation";
 
 type UpdateBalanceProps = {
   accountId?: string;
@@ -19,10 +18,8 @@ const flexContainerClass = "flex items-center justify-center w-full";
 
 function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
   const [balance, setBalance] = useState("");
-  const [usuario, setUsuario] = useState(accountId);
   const [descripcion, setDescripcion] = useState("");
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const onSubmit = (event: FormEvent) => {
     if (loading) {
@@ -39,7 +36,7 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
       method: "POST",
       body: JSON.stringify({
         balance: +balance,
-        account_id: usuario,
+        account_id: accountId,
         description: descripcion,
       }),
     });
@@ -48,7 +45,6 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
         setTimeout(() => {
           setBalance("");
           setDescripcion("");
-          setUsuario("");
           toast.update(id, {
             render: "Actualizado!",
             type: "success",
@@ -94,17 +90,6 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
               <>
                 <Form onSubmit={onSubmit}>
                   <Title className="my-3 mx-2">Descuento de saldo</Title>
-                  <Input
-                    className="text-black h-[60px] rounded-lg"
-                    type="text"
-                    name="usuario"
-                    id="usuario"
-                    value={usuario}
-                    placeholder="Cuenta de usuario"
-                    disabled={!!accountId}
-                    onChange={(e) => !accountId && setUsuario(e.target.value)}
-                  />
-                  <br />
                   <Input
                     className="text-black h-[60px] rounded-lg"
                     type="number"
