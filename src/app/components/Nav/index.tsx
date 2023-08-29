@@ -28,7 +28,6 @@ export default function Nav({isAdmin}: {isAdmin: boolean}) {
   return (
 
     <div className="my-2 flex absolute z-1">
-      <LinkWithActiveClass href="/account">Consultar Saldo</LinkWithActiveClass>
       <LinkWithActiveClass href="/balance">
         Crear nueva cuenta
       </LinkWithActiveClass>
