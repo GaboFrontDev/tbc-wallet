@@ -100,7 +100,7 @@ function GetBalanceWithParam({
           </div>
           <br />
           {accountFound && <HistoryContainer />}
-          {(!accountFound || current == 0) && <ToScan />}
+          {(!accountFound || current <= 0) && <ToScan />}
         </div>
       </div>
     </>
