@@ -36,9 +36,14 @@ function LoginForm() {
       const data = await res.json();
       const cookies = new Cookies();
       if (data.result?.token) {
+        const iat = Math.floor(Date.now() / 1000);
+        const exp = iat + 60 * 60 * 24 * 7; // one week
+        const current = new Date(); //'Mar 11 2015' current.getTime() = 1426060964567
+        const followingDay = new Date(current.getTime() + exp); // 
         cookies.set("session_token", data.result?.token, {
           secure: true,
           sameSite: 'none',
+          expires: followingDay
         });
         router.refresh();
       } else {

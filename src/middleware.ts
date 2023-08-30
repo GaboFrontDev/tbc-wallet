@@ -36,11 +36,17 @@ export async function qrMiddleware(request: NextRequest) {
 
   const token = await createAccountToken(account_id)
   const response = NextResponse.redirect(new URL("/qr", request.url));
+  const iat = Math.floor(Date.now() / 1000);
+  const exp = iat + 60 * 60 * 24 * 60; // six months
+  const current = new Date(); //'Mar 11 2015' current.getTime() = 1426060964567
+  const sixMonths = new Date(current.getTime() + exp); // 
+
   response.cookies.set({
     name: "account_token",
     value: token,
     secure: true,
     sameSite: 'none',
+    expires: sixMonths
   });
   return response;
 }
@@ -71,11 +77,17 @@ export async function adminMiddleware(request: NextRequest) {
   }
   const response = NextResponse.next();
   const token = await createLoginToken(authorizedData);
+  const iat = Math.floor(Date.now() / 1000);
+  const exp = iat + 60 * 60 * 24; // one day
+  const current = new Date(); //'Mar 11 2015' current.getTime() = 1426060964567
+  const followingDay = new Date(current.getTime() + exp); // 
+
   response.cookies.set({
     name: "session_token",
     value: token,
     secure: true,
     sameSite: 'none',
+    expires: followingDay
   });
   return response;
 }
