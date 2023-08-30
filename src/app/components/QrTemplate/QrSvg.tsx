@@ -191,34 +191,7 @@ export default function QrSvg(props: SvgProps) {
               data-name="Group 1393"
               transform="translate(0 68)"
             >
-              <g data-type="innerShadowGroup">
-                <rect
-                  id="Rectangle_18-2"
-                  data-name="Rectangle 18"
-                  width="169"
-                  height="169"
-                  rx="21"
-                  transform="translate(112 581)"
-                  fill="#fff"
-                />
-                <g
-                  transform="matrix(1, 0, 0, 1, 0, 300.06)"
-                  filter="url(#Rectangle_18)"
-                >
-                  <rect
-                    id="Rectangle_18-3"
-                    data-name="Rectangle 18"
-                    width="169"
-                    height="169"
-                    rx="21"
-                    transform="translate(112 280.94)"
-                    fill="#fff"
-                  >
-                    
-                  </rect>
-                </g>
-              </g>
-              <g transform="translate(135 600)">{children}</g>
+              <g transform="translate(95 520)">{children}</g>
 
             </g>
           </g>

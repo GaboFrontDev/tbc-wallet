@@ -17,14 +17,14 @@ export default function QrTemplate({
       <div className="fixed top-0 left-0 w-full h-full">
         <QrImage link={<Link href={linkUrl}>Ver Saldo</Link>}>
           <QRCode
-            size={130}
+            size={200}
             style={{
               height: "auto",
               maxWidth: "100%",
               width: "100%",
             }}
             value={url || ""}
-            viewBox={`0 0 128 128`}
+            viewBox={`0 0 150 150`}
           />
         </QrImage>
       </div>

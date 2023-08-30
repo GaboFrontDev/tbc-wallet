@@ -73,17 +73,15 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
   return (
     <>
       <main className={`${flexContainerClass} h-full`}>
-        <div className="w-10/12">
+        <div className="w-11/12">
           <div
             className={`${flexContainerClass} bg-gray-400/50 rounded-lg p-5 my-4 shadow-lg`}
           >
             {!accountId && (
-              <>
-                <div>
-                  <Title className="text-[30px]">Escanea Cuenta</Title>
-                  <QrCodeScanner url="admin" />
-                </div>
-              </>
+              <div className="w-full">
+                <Title className="text-[30px]">Escanea Cuenta</Title>
+                <QrCodeScanner url="admin" />
+              </div>
             )}
 
             {accountId && (

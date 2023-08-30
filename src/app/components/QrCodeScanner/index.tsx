@@ -59,10 +59,10 @@ const Html5QrcodePlugin = (props: any) => {
     };
   }, [props, mounted]);
 
-  return mounted && <div id={qrcodeRegionId} />;
+  return mounted && <div id={qrcodeRegionId} className="w-full" />;
 };
 
-export default function QrCodeScanner({url = "qr"}: {url?: string}) {
+export default function QrCodeScanner({ url = "qr" }: { url?: string }) {
   const router = useRouter();
 
   const onNewScanResult = (decodedText: string) => {
@@ -77,13 +77,11 @@ export default function QrCodeScanner({url = "qr"}: {url?: string}) {
   };
 
   return (
-    <div className="w-full">
-      <Html5QrcodePlugin
-        fps={10}
-        qrbox={250}
-        disableFlip={true}
-        qrCodeSuccessCallback={onNewScanResult}
-      />
-    </div>
+    <Html5QrcodePlugin
+      fps={10}
+      qrbox={300}
+      disableFlip={true}
+      qrCodeSuccessCallback={onNewScanResult}
+    />
   );
 }
