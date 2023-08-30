@@ -38,6 +38,7 @@ function LoginForm() {
       if (data.result?.token) {
         cookies.set("session_token", data.result?.token, {
           secure: true,
+          sameSite: 'lax',
         });
         router.refresh();
       } else {

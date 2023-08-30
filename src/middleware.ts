@@ -39,7 +39,8 @@ export async function qrMiddleware(request: NextRequest) {
   response.cookies.set({
     name: "account_token",
     value: token,
-    secure: true
+    secure: true,
+    sameSite: 'lax',
   });
   return response;
 }
@@ -73,7 +74,8 @@ export async function adminMiddleware(request: NextRequest) {
   response.cookies.set({
     name: "session_token",
     value: token,
-    secure: true
+    secure: true,
+    sameSite: 'lax',
   });
   return response;
 }
