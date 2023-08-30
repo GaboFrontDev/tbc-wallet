@@ -14,7 +14,7 @@ type UpdateBalanceProps = {
   accountId?: string;
 };
 
-const flexContainerClass = "flex items-center justify-center w-full";
+const flexContainerClass = "flex items-center justify-center";
 
 function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
   const [balance, setBalance] = useState("");
@@ -72,19 +72,18 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
 
   return (
     <>
-      <main className={`${flexContainerClass} h-full`}>
-        <div className="w-11/12">
-          <div
-            className={`${flexContainerClass} bg-gray-400/50 rounded-lg p-5 my-4 shadow-lg`}
-          >
-            {!accountId && (
-              <div className="w-full">
-                <Title className="text-[30px]">Escanea Cuenta</Title>
-                <QrCodeScanner url="admin" />
-              </div>
-            )}
-
-            {accountId && (
+      <main className={`${flexContainerClass} h-full  w-full`}>
+        <div className="w-full h-full flex items-center justify-center">
+          {!accountId && (
+            <div className="w-11/12">
+              <Title className="text-[40]">Escanea Cuenta</Title>
+              <QrCodeScanner url="admin" />
+            </div>
+          )}
+          {accountId && (
+            <div
+              className={`${flexContainerClass} bg-gray-400/50 rounded-lg p-5 my-4 shadow-lg w-11/12`}
+            >
               <>
                 <Form onSubmit={onSubmit}>
                   <Title className="my-3 mx-2">Descuento de saldo</Title>
@@ -119,8 +118,8 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
                   hideProgressBar={false}
                 />
               </>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </main>
     </>

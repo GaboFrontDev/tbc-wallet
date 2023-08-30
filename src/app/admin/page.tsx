@@ -7,8 +7,6 @@ const UpdateBalance = dynamic(() => import("@/app/components/UpdateBalance"), {
 
 export default function AdminPage() {
   return (
-    <>
-      <UpdateBalance />
-    </>
+    <UpdateBalance />
   );
 }
