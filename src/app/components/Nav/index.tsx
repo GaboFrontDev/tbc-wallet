@@ -31,7 +31,14 @@ export default function Nav({
   className?: string;
 }) {
   if (!isAdmin) {
-    return <></>;
+    return <>
+    <div className="w-full">
+        <div className="w-full">
+          <LinkWithActiveClass href="/qr">
+            Mi cuenta
+          </LinkWithActiveClass>
+        </div>
+      </div></>;
   }
   return (
     <>

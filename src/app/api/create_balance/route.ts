@@ -22,7 +22,21 @@ export async function POST(req: NextRequest) {
     account_id: uid(),
     phone: data.phone.toLowerCase(),
   };
-  const balance = await prisma.account_balance.create({ data: obj });
+  const balance = await prisma.account_balance.create({
+    data: obj,
+    select: {
+      id: true,
+      account_id: true,
+      current: true,
+    },
+  });
+  await prisma.account_balance_history.create({
+    data: {
+      account_id: balance.account_id,
+      discount: balance.current,
+      description: "Apertura de cuenta",
+    },
+  });
   return NextResponse.json(
     {
       success: true,
