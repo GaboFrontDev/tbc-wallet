@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { IconMenu } from "../IconMenu";
+import { IconMenu } from "@/app/components/Icons/index";
 import Drawer from "react-modern-drawer";
 
 import "react-modern-drawer/dist/index.css";

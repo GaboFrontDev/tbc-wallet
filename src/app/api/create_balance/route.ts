@@ -17,11 +17,42 @@ export async function POST(req: NextRequest) {
     length: 8,
   });
   const data: Payload = await req.json();
-  const obj = {
+  const obj: {
+    current: number;
+    account_id: string;
+    phone: string;
+    promoId: string | null;
+  } = {
     current: data.current,
     account_id: uid(),
     phone: data.phone.toLowerCase(),
+    promoId: null,
   };
+  console.log({ obj });
+  const promo = await prisma.promociones.findFirst({
+    where: {
+      expires_at: {
+        gt: new Date(),
+      },
+      cantidad_promo: {
+        gt: 0,
+      },
+      rango: {
+        lte: obj.current,
+      },
+    },
+  });
+  if (promo) {
+    obj.promoId = promo.id;
+    await prisma.promociones.update({
+      where: {
+        id: promo.id,
+      },
+      data: {
+        cantidad_promo: promo.cantidad_promo - 1,
+      },
+    });
+  }
   const balance = await prisma.account_balance.create({
     data: obj,
     select: {

@@ -1,6 +1,7 @@
 "use client";
-import Link from "next/link";
 import type { ReactNode } from "react";
+import type { account_balance } from "@prisma/client";
+import Link from "next/link";
 
 const LinkWithActiveClass = ({
   href,
@@ -31,14 +32,15 @@ export default function Nav({
   className?: string;
 }) {
   if (!isAdmin) {
-    return <>
-    <div className="w-full">
+    return (
+      <>
         <div className="w-full">
-          <LinkWithActiveClass href="/qr">
-            Mi cuenta
-          </LinkWithActiveClass>
+          <div className="w-full">
+            <LinkWithActiveClass href="/qr">Ver mi QR</LinkWithActiveClass>
+          </div>
         </div>
-      </div></>;
+      </>
+    );
   }
   return (
     <>
@@ -50,6 +52,9 @@ export default function Nav({
         </div>
         <div className={`${className} my-2`}>
           <LinkWithActiveClass href="/admin">Cobrar</LinkWithActiveClass>
+        </div>
+        <div className={`${className} my-2`}>
+          <LinkWithActiveClass href="/promos">Ver Promos</LinkWithActiveClass>
         </div>
       </div>
     </>

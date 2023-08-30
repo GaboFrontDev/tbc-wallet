@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { twMerge } from 'tailwind-merge'
 import { cookies } from 'next/headers'
-import { user } from '@prisma/client'
+import { account_balance, user } from '@prisma/client'
 
 import isAuthorized from './lib/isAuthorized'
 import Nav from './components/Nav'
@@ -18,7 +18,6 @@ export const metadata: Metadata = {
   description: 'Servicio de prepago',
 }
 
-
 const defaultBodyClasses = "h-screen bg-gray flex";
 
 export default async function RootLayout({
@@ -29,14 +28,15 @@ export default async function RootLayout({
   const cookieStore = cookies();
   const session_token = cookieStore.get("session_token")?.value || "";
   const data = (await isAuthorized(session_token)) as user;
-  
   const classes = twMerge(defaultBodyClasses, inter.className)
   return (
     <html lang="en">
       <body className={classes}>
-        <div className="absolute w-full h-full backdrop-blur-md z-2"></div>
+        <div className="absolute w-full h-full backdrop-blur-sm z-2"></div>
         <BackgroundImg />
-        <NavDrawer Nav={<Nav isAdmin={data?.is_admin} />} />
+        <NavDrawer
+          Nav={<Nav isAdmin={data?.is_admin} />}
+        />
         <div className="h-full flex justify-center w-full absolute z-3">
           {children}
         </div>

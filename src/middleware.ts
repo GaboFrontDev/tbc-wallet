@@ -39,6 +39,7 @@ export async function qrMiddleware(request: NextRequest) {
   response.cookies.set({
     name: "account_token",
     value: token,
+    secure: true
   });
   return response;
 }
@@ -72,6 +73,7 @@ export async function adminMiddleware(request: NextRequest) {
   response.cookies.set({
     name: "session_token",
     value: token,
+    secure: true
   });
   return response;
 }
@@ -102,6 +104,9 @@ export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith("/admin")) {
     return adminMiddleware(request);
   }
+  if (request.nextUrl.pathname.startsWith("/promos")) {
+    return adminMiddleware(request);
+  }
   if (request.nextUrl.pathname.startsWith("/search")) {
     return adminMiddleware(request);
   }
@@ -118,9 +123,10 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/",
     "/qr",
     "/qr/(.*)",
+    "/promos",
+    "/promos/(.*)",
     "/scan",
     "/remove-account",
     "/admin",
