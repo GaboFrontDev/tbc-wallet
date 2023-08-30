@@ -40,7 +40,7 @@ export async function qrMiddleware(request: NextRequest) {
     name: "account_token",
     value: token,
     secure: true,
-    sameSite: 'lax',
+    sameSite: 'none',
   });
   return response;
 }
@@ -75,7 +75,7 @@ export async function adminMiddleware(request: NextRequest) {
     name: "session_token",
     value: token,
     secure: true,
-    sameSite: 'lax',
+    sameSite: 'none',
   });
   return response;
 }
