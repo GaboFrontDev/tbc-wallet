@@ -38,7 +38,7 @@ export async function qrMiddleware(request: NextRequest) {
   const response = NextResponse.redirect(new URL("/qr", request.url));
   const iat = Math.floor(Date.now() / 1000);
   const exp = iat + 60 * 60 * 24 * 60; // six months
-  const current = new Date(); //'Mar 11 2015' current.getTime() = 1426060964567
+  const current = new Date();
   const sixMonths = new Date(current.getTime() + exp); // 
 
   response.cookies.set({
