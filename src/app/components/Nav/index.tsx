@@ -5,35 +5,46 @@ import type { ReactNode } from "react";
 const LinkWithActiveClass = ({
   href,
   children,
+  className,
 }: {
   href: string;
   children?: ReactNode;
+  className?: string;
 }) => {
   return (
     <Link
       {...{
         href,
       }}
-      className="mx-4"
+      className={`${className} mx-4`}
     >
       {children}
     </Link>
   );
 };
 
-export default function Nav({isAdmin}: {isAdmin: boolean}) {
-  if(!isAdmin) {
-    return <></>
+export default function Nav({
+  isAdmin,
+  className,
+}: {
+  isAdmin: boolean;
+  className?: string;
+}) {
+  if (!isAdmin) {
+    return <></>;
   }
   return (
-
-    <div className="my-2 flex absolute z-1">
-      <LinkWithActiveClass href="/balance">
-        Crear nueva cuenta
-      </LinkWithActiveClass>
-      <LinkWithActiveClass href="/admin">
-        Cobrar
-      </LinkWithActiveClass>
-    </div>
+    <>
+      <div className="w-full">
+        <div className="w-full">
+          <LinkWithActiveClass href="/balance">
+            Crear nueva cuenta
+          </LinkWithActiveClass>
+        </div>
+        <div className={`${className} my-2`}>
+          <LinkWithActiveClass href="/admin">Cobrar</LinkWithActiveClass>
+        </div>
+      </div>
+    </>
   );
 }

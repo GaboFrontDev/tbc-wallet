@@ -9,6 +9,7 @@ import isAuthorized from './lib/isAuthorized'
 import Nav from './components/Nav'
 import BackgroundImg from './components/Background/BackgroundImg'
 import Footer from './components/Footer'
+import { NavDrawer } from './components/NavContainer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
   title: 'The Beer Company | Americana',
   description: 'Servicio de prepago',
 }
+
 
 const defaultBodyClasses = "h-screen bg-gray flex";
 
@@ -32,14 +34,14 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={classes}>
-        <div className='absolute w-full h-full backdrop-blur-md z-2'></div>
+        <div className="absolute w-full h-full backdrop-blur-md z-2"></div>
         <BackgroundImg />
-        <div className='h-full flex justify-center w-full absolute z-3'>
+        <NavDrawer Nav={<Nav isAdmin={data?.is_admin} />} />
+        <div className="h-full flex justify-center w-full absolute z-3">
           {children}
         </div>
-        <Nav isAdmin={data?.is_admin} />
         <Footer />
       </body>
     </html>
-  )
+  );
 }
