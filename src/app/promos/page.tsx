@@ -26,7 +26,7 @@ export default async function PromosPage() {
         <Title className="text-[40px]">
           <b>Tus Promos</b>
         </Title>
-        <ContainerWithShadow className="h-[300px] overflow-auto">
+        <ContainerWithShadow className="max-h-[500px] overflow-auto">
           <FlexContainer className="w-full h-full">
             <PromosContainer promos={promos} />
           </FlexContainer>

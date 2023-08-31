@@ -106,7 +106,7 @@ export default function PromosContainer(props: PromosContainerProps) {
                 </div>
               </div>
               <div
-                className="absolute top-2 right-2 cursor-pointer"
+                className="absolute top-4 right-3 cursor-pointer"
                 onClick={(event) => deleteHandler(event, { id, index })}
               >
                 <IconTrash />
