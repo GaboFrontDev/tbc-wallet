@@ -9,12 +9,12 @@ import Button from "../Button";
 import Form from "../Form";
 import Title from "../Title";
 import QrCodeScanner from "../QrCodeScanner";
+import FlexContainer from "../FlexContainer";
 
 type UpdateBalanceProps = {
   accountId?: string;
 };
 
-const flexContainerClass = "flex items-center justify-center";
 
 function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
   const [balance, setBalance] = useState("");
@@ -72,56 +72,52 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
 
   return (
     <>
-      <main className={`${flexContainerClass} h-full  w-full`}>
-        <div className="w-full h-full flex items-center justify-center">
-          {!accountId && (
-            <div className="w-11/12">
-              <Title className="text-[40]">Escanea Cuenta</Title>
-              <QrCodeScanner url="admin" />
-            </div>
-          )}
-          {accountId && (
-            <div
-              className={`${flexContainerClass} bg-gray-400/50 rounded-lg p-5 my-4 shadow-lg w-11/12`}
-            >
-              <>
-                <Form onSubmit={onSubmit}>
-                  <Title className="my-3 mx-2">Descuento de saldo</Title>
-                  <Input
-                    className="text-black h-[60px] rounded-lg"
-                    type="number"
-                    name="balance"
-                    id="balance"
-                    placeholder="Cantidad a descontar"
-                    value={balance}
-                    onChange={(e) => setBalance(e.target.value)}
-                  />
-                  <br />
-                  <Input
-                    className="text-black h-[60px] rounded-lg"
-                    type="text"
-                    name="description"
-                    id="description"
-                    placeholder="Descripcion del descuento"
-                    value={descripcion}
-                    onChange={(e) => setDescripcion(e.target.value)}
-                  />
-                  <br />
-                  <Button type="submit" disabled={loading}>
-                    Actualizar
-                  </Button>
-                </Form>
-                <ToastContainer
-                  closeOnClick
-                  position="bottom-center"
-                  autoClose={3000}
-                  hideProgressBar={false}
+      <FlexContainer className="h-full  w-full" tag="main">
+        {!accountId && (
+          <div className="w-11/12">
+            <Title className="text-[40]">Escanea Cuenta</Title>
+            <QrCodeScanner url="admin" />
+          </div>
+        )}
+        {accountId && (
+          <FlexContainer className="w-11/12" withShadow>
+            <>
+              <Form onSubmit={onSubmit}>
+                <Title className="my-3 mx-2">Descuento de saldo</Title>
+                <Input
+                  className="text-black h-[60px] rounded-lg"
+                  type="number"
+                  name="balance"
+                  id="balance"
+                  placeholder="Cantidad a descontar"
+                  value={balance}
+                  onChange={(e) => setBalance(e.target.value)}
                 />
-              </>
-            </div>
-          )}
-        </div>
-      </main>
+                <br />
+                <Input
+                  className="text-black h-[60px] rounded-lg"
+                  type="text"
+                  name="description"
+                  id="description"
+                  placeholder="Descripcion del descuento"
+                  value={descripcion}
+                  onChange={(e) => setDescripcion(e.target.value)}
+                />
+                <br />
+                <Button type="submit" disabled={loading}>
+                  Actualizar
+                </Button>
+              </Form>
+              <ToastContainer
+                closeOnClick
+                position="bottom-center"
+                autoClose={3000}
+                hideProgressBar={false}
+              />
+            </>
+          </FlexContainer>
+        )}
+      </FlexContainer>
     </>
   );
 }

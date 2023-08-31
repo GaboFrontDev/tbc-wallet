@@ -9,8 +9,8 @@ import Form from "../Form";
 import Title from "../Title";
 import Subtitle from "../Subtitle";
 import type { account_balance } from "@prisma/client";
-
-const flexContainerClass = "flex items-center justify-center w-full";
+import ContainerWithShadow from "../ShadowContainer";
+import FlexContainer from "../FlexContainer";
 
 export default function SearchComponent() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -60,8 +60,8 @@ export default function SearchComponent() {
   };
 
   const AccountsContainer = () => (
-    <div className="bg-gray-400/50 rounded-lg p-5 shadow-lg">
-      <div className={flexContainerClass}>
+    <ContainerWithShadow>
+      <FlexContainer>
         <div className="w-full">
           <div className="w-full">
             <Subtitle className="text-bold">Cuentas encontradas</Subtitle>
@@ -72,21 +72,21 @@ export default function SearchComponent() {
             ))}
           </div>
         </div>
-      </div>
-    </div>
+      </FlexContainer>
+    </ContainerWithShadow>
   );
 
   return (
     <>
-      <main className={`${flexContainerClass} h-full`}>
+      <FlexContainer className="h-full">
         <div className="w-10/12">
-          <div
-            className={`${flexContainerClass} bg-gray-400/50 rounded-lg p-5 my-4 shadow-lg`}
-          >
-            <Form onSubmit={(e) => {
+          <FlexContainer withShadow>
+            <Form
+              onSubmit={(e) => {
                 e.preventDefault();
                 onClick();
-            }}>
+              }}
+            >
               <Title>Busqueda de cuenta</Title>
               <Input
                 type="text"
@@ -107,10 +107,10 @@ export default function SearchComponent() {
                 Buscar
               </Button>
             </Form>
-          </div>
+          </FlexContainer>
           {accounts && <AccountsContainer />}
         </div>
-      </main>
+      </FlexContainer>
       <ToastContainer />
     </>
   );

@@ -4,6 +4,7 @@ import { IconMenu } from "@/app/components/Icons/index";
 import Drawer from "react-modern-drawer";
 
 import "react-modern-drawer/dist/index.css";
+import FlexContainer from "../FlexContainer";
 
 const NavContainerMobile = ({
   className,
@@ -13,7 +14,7 @@ const NavContainerMobile = ({
   onClick: () => void;
 }) => (
   <div className={`${className} w-full overflow-y-auto h-14 `}>
-    <div className="w-1/6 flex items-center justify-center text-white">
+    <FlexContainer className="w-1/6 text-white">
       <button
         className="md:hidden"
         onClick={onClick}
@@ -22,7 +23,7 @@ const NavContainerMobile = ({
       >
         <IconMenu />
       </button>
-    </div>
+    </FlexContainer>
   </div>
 );
 
@@ -41,7 +42,7 @@ export const NavDrawer = ({
   return (
     <>
       <NavContainerMobile
-        className="md:hidden absolute z-10 flex items-center overflow-y-hidden"
+        className="absolute z-10 flex items-center overflow-y-hidden"
         onClick={toggleDrawer}
       />
       <Drawer

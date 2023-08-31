@@ -9,6 +9,8 @@ import Input from "../Input";
 import Form from "../Form";
 import Title from "../Title";
 import Subtitle from "../Subtitle";
+import ContainerWithShadow from "../ShadowContainer";
+import FlexContainer from "../FlexContainer";
 
 interface AccountBalance {
   account_id: string;
@@ -18,8 +20,6 @@ interface AccountBalance {
 interface AccountResponse {
   result: AccountBalance;
 }
-
-const flexContainerClass = "flex items-center justify-center w-full";
 
 function CreateBalance({ url }: { url?: string }) {
   const [current, setCurrent] = useState("");
@@ -60,36 +60,29 @@ function CreateBalance({ url }: { url?: string }) {
   };
 
   const QRContainer = () => (
-    <div>
-      <Title className="text-[45px] text-center">{accountID}</Title>
-      <div className={flexContainerClass}>
-        {accountID && (
-          <div className="shadow-inner bg-black/20 flex w-2/3 p-4 rounded-xl">
-            <QRCode
-              size={256}
-              style={{
-                height: "auto",
-                maxWidth: "100%",
-                width: "100%",
-              }}
-              value={`${url}/${accountID}`}
-              viewBox={`0 0 128 128`}
-            />
-          </div>
-        )}
+    <FlexContainer className="my-2">
+      <div className="shadow-inner bg-black/20 flex w-3/3 p-3 rounded-xl">
+        <QRCode
+          size={256}
+          style={{
+            height: "auto",
+            maxWidth: "100%",
+            width: "100%",
+          }}
+          value={`${url}/${accountID}`}
+          viewBox={`0 0 128 128`}
+        />
       </div>
-    </div>
+    </FlexContainer>
   );
 
   return (
     <>
-      <main className={`${flexContainerClass} h-full`}>
+      <FlexContainer className="h-full" tag="main">
         <div className="w-10/12">
-          <div
-            className={`${flexContainerClass} bg-gray-400/50 rounded-lg p-5 my-4 shadow-lg`}
-          >
+          <Title className="text-[30px]">Nueva Cuenta</Title>
+          <FlexContainer className="my-2" withShadow>
             <Form>
-              <Title>Nueva Cuenta</Title>
               <Input
                 type="number"
                 name="balance"
@@ -117,19 +110,21 @@ function CreateBalance({ url }: { url?: string }) {
                 Crear
               </Button>
             </Form>
-          </div>
-          <div className="bg-gray-400/50 rounded-lg p-5 shadow-lg">
-            <div className={flexContainerClass}>
-              <div className="w-full">
+          </FlexContainer>
+          {accountID?.length && (
+            <ContainerWithShadow>
+              <FlexContainer>
                 <div className="w-full">
-                  <Subtitle className="text-bold">ID de Cuenta Nueva</Subtitle>
+                  <div className="w-full">
+                    <Subtitle className="text-bold">QR Cuenta Nueva</Subtitle>
+                  </div>
+                  <QRContainer />
                 </div>
-                <QRContainer />
-              </div>
-            </div>
-          </div>
+              </FlexContainer>
+            </ContainerWithShadow>
+          )}
         </div>
-      </main>
+      </FlexContainer>
       <ToastContainer />
     </>
   );

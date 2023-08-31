@@ -4,6 +4,8 @@ import type { account_balance_history } from "@prisma/client";
 
 import Title from "../Title";
 import Link from "next/link";
+import ContainerWithShadow from "../ShadowContainer";
+import FlexContainer from "../FlexContainer";
 
 const defaultLinkClasses =
 "block text-center bg-black/80 hover:bg-gray-100 hover:text-black text-white  shadow shadow-lg font-semibold py-2 px-4 my-2 rounded-full w-full";
@@ -72,13 +74,13 @@ function GetBalanceWithParam({
       <Title className="text-[35px] drop-shadow">
         <b>Tus Compras</b>
       </Title>
-      <div className="bg-gray-400/50 rounded-lg p-5 shadow-lg h-[300px] overflow-auto">
+      <ContainerWithShadow className="h-[300px] overflow-auto">
         <div className="flex justify-center w-full">
           <div className="w-full">
             <HistoryListContainer />
           </div>
         </div>
-      </div>
+      </ContainerWithShadow>
     </>
   );
 
@@ -90,19 +92,19 @@ function GetBalanceWithParam({
 
   return (
     <>
-      <div className="h-full flex items-center justify-center w-full">
+      <FlexContainer className="h-full w-full">
         <div className="w-10/12">
-          <Title className="text-[35px] drop-shadow">
+          <Title className="text-[35px]">
             <b>Saldo Disponible</b>
           </Title>
-          <div className="bg-gray-400/50 rounded-lg p-5 shadow-lg">
+          <ContainerWithShadow>
             <SaldoContainer />
-          </div>
+          </ContainerWithShadow>
           <br />
           {accountFound && <HistoryContainer />}
           {(!accountFound || current <= 0) && <ToScan />}
         </div>
-      </div>
+      </FlexContainer>
     </>
   );
 }

@@ -10,6 +10,7 @@ import Input from "../Input";
 import Button from "../Button";
 import Title from "../Title";
 import Form from "../Form";
+import FlexContainer from "../FlexContainer";
 
 function LoginForm() {
   const router = useRouter();
@@ -60,11 +61,11 @@ function LoginForm() {
   };
 
   return (
-    <div className="h-full flex items-center justify-center w-full">
+    <FlexContainer className="h-full">
       <div className="w-8/12">
-        <div className="flex items-center justify-center w-full">
+        <FlexContainer>
           <Form onSubmit={sendUser}>
-            <Title className="my-5 mx-2 text-[45px]">
+            <Title className="my-5 text-[45px]">
               {isLogin ? "Login" : "Crear Cuenta"}
             </Title>
             <Input
@@ -87,13 +88,12 @@ function LoginForm() {
               onChange={(e) => setPassword(e.target.value)}
             />
             <br />
-
             <Button type="submit" className="w-full">
               Enviar
             </Button>
           </Form>
-        </div>
-        <div className="flex items-center justify-center">
+        </FlexContainer>
+        <FlexContainer>
           <Button
             type="button"
             className="w-full"
@@ -101,7 +101,7 @@ function LoginForm() {
           >
             {isLogin ? "Crear Cuenta Administrador" : "Soy Administrador"}
           </Button>
-        </div>
+        </FlexContainer>
       </div>
       <ToastContainer
         closeOnClick
@@ -109,7 +109,7 @@ function LoginForm() {
         autoClose={3000}
         hideProgressBar={false}
       />
-    </div>
+    </FlexContainer>
   );
 }
 

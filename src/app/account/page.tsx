@@ -5,6 +5,7 @@ import GetBalanceWithParam from "@/app/components/GetBalanceWithParam";
 
 import isAuthorized from "../lib/isAuthorized";
 import { prisma } from "../lib/prisma";
+import FlexContainer from "../components/FlexContainer";
 
 async function BalanceWithParam({ data }: { data: account_balance }) {
   const [userBalance, balanceHistory] = await Promise.all([
@@ -40,9 +41,9 @@ export default async function AccountBalancePage() {
   const data = (await isAuthorized(account_token)) as account_balance;
   if (!data?.account_id) {
     return (
-      <div className="flex justify-center items-center h-full w-8/12">
+      <FlexContainer className="h-full w-8/12">
         <GetBalance />
-      </div>
+      </FlexContainer>
     );
   }
   return <BalanceWithParam data={data} />;
