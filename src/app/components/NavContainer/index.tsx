@@ -55,6 +55,7 @@ export const NavDrawer = ({
         onClose={toggleDrawer}
         direction="top"
         duration={250}
+        customIdSuffix="nav-drawer"
         zIndex={1001}
         lockBackgroundScroll
         className="w-full text-black flex items-center h-[33vh] rounded-b-xl"
