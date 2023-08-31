@@ -1,7 +1,8 @@
 "use client";
 import type { ReactNode } from "react";
-import type { account_balance } from "@prisma/client";
 import Link from "next/link";
+import FlexContainer from "../FlexContainer";
+import { twMerge } from "tailwind-merge";
 
 const LinkWithActiveClass = ({
   href,
@@ -12,51 +13,40 @@ const LinkWithActiveClass = ({
   children?: ReactNode;
   className?: string;
 }) => {
+  const classes = twMerge("mx-4", className);
   return (
-    <Link
-      {...{
-        href,
-      }}
-      className={`${className} mx-4`}
-    >
+    <Link href={href} className={classes}>
       {children}
     </Link>
   );
 };
 
-export default function Nav({
-  isAdmin,
-  className,
-}: {
+type NavProps = {
   isAdmin: boolean;
   className?: string;
-}) {
+};
+
+export default function Nav({ isAdmin }: NavProps) {
   if (!isAdmin) {
     return (
-      <>
-        <div className="w-full">
-          <div className="w-full">
-            <LinkWithActiveClass href="/qr">Ver mi QR</LinkWithActiveClass>
-          </div>
-        </div>
-      </>
+      <FlexContainer>
+        <LinkWithActiveClass href="/qr">Ver mi QR</LinkWithActiveClass>
+      </FlexContainer>
     );
   }
   return (
-    <>
-      <div className="w-full">
-        <div className="w-full">
-          <LinkWithActiveClass href="/balance">
-            Crear nueva cuenta
-          </LinkWithActiveClass>
-        </div>
-        <div className={`${className} my-2`}>
-          <LinkWithActiveClass href="/admin">Cobrar</LinkWithActiveClass>
-        </div>
-        <div className={`${className} my-2`}>
-          <LinkWithActiveClass href="/promos">Ver Promos</LinkWithActiveClass>
-        </div>
-      </div>
-    </>
+    <div className="w-full">
+      <FlexContainer className="my-2 h-[40px]">
+        <LinkWithActiveClass href="/balance">
+          Crear nueva cuenta
+        </LinkWithActiveClass>
+      </FlexContainer>
+      <FlexContainer className="my-2 h-[40px]">
+        <LinkWithActiveClass href="/admin">Cobrar</LinkWithActiveClass>
+      </FlexContainer>
+      <FlexContainer className="my-2 h-[40px]">
+        <LinkWithActiveClass href="/promos">Ver Promos</LinkWithActiveClass>
+      </FlexContainer>
+    </div>
   );
 }

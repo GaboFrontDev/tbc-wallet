@@ -1,10 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IconMenu } from "@/app/components/Icons/index";
 import Drawer from "react-modern-drawer";
 
 import "react-modern-drawer/dist/index.css";
 import FlexContainer from "../FlexContainer";
+import { usePathname } from "next/navigation";
 
 const NavContainerMobile = ({
   className,
@@ -16,7 +17,6 @@ const NavContainerMobile = ({
   <div className={`${className} w-full overflow-y-auto h-14 `}>
     <FlexContainer className="w-1/6 text-white">
       <button
-        className="md:hidden"
         onClick={onClick}
         name="drawer-menu-btn"
         title="menu"
@@ -34,10 +34,15 @@ export const NavDrawer = ({
   className?: string;
   Nav: React.ReactNode;
 }) => {
+  const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
   };
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathName]);
 
   return (
     <>
@@ -48,9 +53,11 @@ export const NavDrawer = ({
       <Drawer
         open={isOpen}
         onClose={toggleDrawer}
-        direction="left"
-        className="w-full text-black flex items-center"
+        direction="top"
+        duration={250}
         zIndex={1001}
+        lockBackgroundScroll
+        className="w-full text-black flex items-center h-[33vh] rounded-b-xl"
       >
         {Nav}
       </Drawer>

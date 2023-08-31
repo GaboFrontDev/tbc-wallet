@@ -41,6 +41,9 @@ export async function POST(req: NextRequest) {
         lte: obj.current,
       },
     },
+    orderBy: {
+      rango: "desc"
+    }
   });
   if (promo) {
     obj.promoId = promo.id;
