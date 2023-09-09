@@ -29,7 +29,7 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
     setLoading(true);
     const apiUrl = `${window.location.origin}/api/balance`;
 
-    const id = toast.loading("Cargando...", {
+    const id = toast.loading("Loading...", {
       autoClose: 1500,
     });
     const req = fetch(apiUrl, {

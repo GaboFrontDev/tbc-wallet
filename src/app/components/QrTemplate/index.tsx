@@ -15,7 +15,7 @@ export default function QrTemplate({
   return (
     <>
       <div className="fixed top-0 left-0 w-full h-full">
-        <QrImage link={<Link href={linkUrl}>Ver Saldo</Link>}>
+        <QrImage link={<Link href={""}>My event name</Link>}>
           <QRCode
             size={200}
             style={{

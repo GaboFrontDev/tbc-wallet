@@ -22,7 +22,7 @@ export default function CreatePromo() {
     }
 
     event.preventDefault();
-    const id = toast.loading("Cargando...");
+    const id = toast.loading("Loading...");
     console.log(event.target);
     const req = fetch(apiUrl, {
       method: "POST",

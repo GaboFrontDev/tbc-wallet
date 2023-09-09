@@ -21,10 +21,10 @@ function LoginForm() {
   const sendUser = (event: FormEvent) => {
     event.preventDefault();
     if (!email.length || !password.length) {
-      toast.error("Aun quedaron campos vacíos");
+      toast.error("Please fill all sections");
       return;
     }
-    const id = toast.loading("Cargando...");
+    const id = toast.loading("Loading...");
 
     const req = fetch(isLogin ? "api/login" : "api/create_user", {
       method: "POST",
@@ -50,7 +50,7 @@ function LoginForm() {
       } else {
         setTimeout(() => {
           toast.update(id, {
-            render: "Ha habido un error!",
+            render: "There was an error",
             type: "error",
             isLoading: false,
             autoClose: 3000,
@@ -92,15 +92,6 @@ function LoginForm() {
               Enviar
             </Button>
           </Form>
-        </FlexContainer>
-        <FlexContainer>
-          <Button
-            type="button"
-            className="w-full"
-            onClick={() => setIsLogin(!isLogin)}
-          >
-            {isLogin ? "Crear Cuenta Administrador" : "Soy Administrador"}
-          </Button>
         </FlexContainer>
       </div>
       <ToastContainer

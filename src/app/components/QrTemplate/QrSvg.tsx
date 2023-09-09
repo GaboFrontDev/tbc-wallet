@@ -1,7 +1,7 @@
 import { LogoBase64 } from "./consts";
 
 export type SvgProps = React.ComponentProps<'svg'> & {
-  link: JSX.Element;
+  link?: JSX.Element;
 };
 
 export default function QrSvg(props: SvgProps) {

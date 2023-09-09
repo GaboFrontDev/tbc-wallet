@@ -31,7 +31,7 @@ function CreateBalance({ url }: { url?: string }) {
       return;
     }
     setLoading(true);
-    const id = toast.loading("Cargando...", {
+    const id = toast.loading("Loading...", {
       autoClose: 3000,
     });
 
@@ -46,7 +46,7 @@ function CreateBalance({ url }: { url?: string }) {
       if (res.ok) {
         setLoading(false);
         toast.update(id, {
-          render: "Cuenta creada!",
+          render: "Ticket created",
           type: "success",
           isLoading: false,
           autoClose: 3000,
@@ -80,7 +80,7 @@ function CreateBalance({ url }: { url?: string }) {
     <>
       <FlexContainer className="h-full" tag="main">
         <div className="w-10/12">
-          <Title className="text-[30px]">Nueva Cuenta</Title>
+          <Title className="text-[30px]">Create Ticket</Title>
           <FlexContainer className="my-2" withShadow>
             <Form>
               <Input
@@ -88,7 +88,7 @@ function CreateBalance({ url }: { url?: string }) {
                 name="balance"
                 id="balance"
                 className="text-black h-[60px] rounded-lg"
-                placeholder="Balance de nueva cuenta"
+                placeholder="Price"
                 onChange={(e) => setCurrent(e.target.value)}
               />
               <br />
@@ -97,7 +97,7 @@ function CreateBalance({ url }: { url?: string }) {
                 name="name"
                 id="name"
                 className="text-black h-[60px] rounded-lg"
-                placeholder="Teléfono"
+                placeholder="Phone"
                 onChange={(e) => setPhone(e.target.value)}
               />
               <br />
@@ -107,7 +107,7 @@ function CreateBalance({ url }: { url?: string }) {
                 className="rounded-lg"
                 disabled={loading}
               >
-                Crear
+                Create
               </Button>
             </Form>
           </FlexContainer>
@@ -116,7 +116,7 @@ function CreateBalance({ url }: { url?: string }) {
               <FlexContainer>
                 <div className="w-full">
                   <div className="w-full">
-                    <Subtitle className="text-bold">QR Cuenta Nueva</Subtitle>
+                    <Subtitle className="text-bold">QR ticket </Subtitle>
                   </div>
                   <QRContainer />
                 </div>

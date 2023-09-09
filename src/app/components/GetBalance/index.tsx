@@ -15,7 +15,7 @@ function GetBalance() {
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
-    toast.loading("Cargando...");
+    toast.loading("Loading...");
     fetch(`/api/balance?client_id=${clientID}`).then(async (res) => {
       if (res.ok) {
         router.push(`account/${clientID}`);

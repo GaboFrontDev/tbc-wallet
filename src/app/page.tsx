@@ -9,7 +9,7 @@ export default function Home() {
         <Title className="text-[45px]">Admin</Title>
       </LinkWithAction>
       <LinkWithAction href={"/qr"}>
-        <Title className="text-[45px]">Mi Cuenta</Title>
+        <Title className="text-[45px]">My ticket</Title>
       </LinkWithAction>
     </main>
   );

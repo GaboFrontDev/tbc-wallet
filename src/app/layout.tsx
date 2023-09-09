@@ -14,8 +14,8 @@ import { NavDrawer } from './components/NavContainer'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'The Beer Company | Americana',
-  description: 'Servicio de prepago',
+  title: 'Ticket selling',
+  description: 'Purchase your tickets now!',
 }
 
 const defaultBodyClasses = "h-screen bg-gray flex";
@@ -33,7 +33,6 @@ export default async function RootLayout({
     <html lang="en">
       <body className={classes}>
         <div className="absolute w-full h-full backdrop-blur-sm z-2"></div>
-        <BackgroundImg />
         <NavDrawer
           Nav={<Nav isAdmin={data?.is_admin} />}
         />

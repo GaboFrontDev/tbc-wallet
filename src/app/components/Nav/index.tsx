@@ -38,14 +38,11 @@ export default function Nav({ isAdmin }: NavProps) {
     <div className="w-full">
       <FlexContainer className="my-2 h-[40px]">
         <LinkWithActiveClass href="/balance">
-          Crear nueva cuenta
+          Sell ticket
         </LinkWithActiveClass>
       </FlexContainer>
       <FlexContainer className="my-2 h-[40px]">
-        <LinkWithActiveClass href="/admin">Cobrar</LinkWithActiveClass>
-      </FlexContainer>
-      <FlexContainer className="my-2 h-[40px]">
-        <LinkWithActiveClass href="/promos">Ver Promos</LinkWithActiveClass>
+        <LinkWithActiveClass href="/admin">Check ticket</LinkWithActiveClass>
       </FlexContainer>
     </div>
   );

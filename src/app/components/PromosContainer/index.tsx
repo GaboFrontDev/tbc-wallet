@@ -27,7 +27,7 @@ export default function PromosContainer(props: PromosContainerProps) {
   const deleteHandler = (event: MouseEvent, { id, index }: DeletePromoData) => {
     event.stopPropagation();
     event.preventDefault();
-    const toastId = toast.loading("Cargando...");
+    const toastId = toast.loading("Loading...");
     deletePromo(id).then((req) => {
       if (!req.ok) {
         toast.update(toastId, {

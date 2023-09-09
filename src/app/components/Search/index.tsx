@@ -22,7 +22,7 @@ export default function SearchComponent() {
       return;
     }
     setLoading(true);
-    const id = toast.loading("Cargando...", {
+    const id = toast.loading("Loading...", {
       autoClose: 3000,
     });
 
