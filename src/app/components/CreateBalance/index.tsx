@@ -88,7 +88,7 @@ function CreateBalance({ url }: { url?: string }) {
                 name="balance"
                 id="balance"
                 className="text-black h-[60px] rounded-lg"
-                placeholder="Price"
+                placeholder="Amounf of tickets"
                 onChange={(e) => setCurrent(e.target.value)}
               />
               <br />
