@@ -11,7 +11,7 @@ export default function AdminPage({
   params: { slug: string };
 }) {
   if (!slug) {
-    return "Esta cuenta no existe :(";
+    return "This ticket doesn't exists :(";
   }
   return <UpdateBalance accountId={slug} />;
 }

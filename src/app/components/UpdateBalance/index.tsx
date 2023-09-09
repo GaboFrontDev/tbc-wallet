@@ -59,7 +59,7 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
       } else {
         setTimeout(() => {
           toast.update(id, {
-            render: "Ha habido un error!",
+            render: "There was an error!",
             type: "error",
             isLoading: false,
             autoClose: 3000,
@@ -75,7 +75,7 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
       <FlexContainer className="h-full  w-full" tag="main">
         {!accountId && (
           <div className="w-11/12">
-            <Title className="text-[40]">Escanea Cuenta</Title>
+            <Title className="text-[40]">Scan account</Title>
             <QrCodeScanner url="admin" />
           </div>
         )}
@@ -83,13 +83,13 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
           <FlexContainer className="w-11/12" withShadow>
             <>
               <Form onSubmit={onSubmit}>
-                <Title className="my-3 mx-2">Descuento de saldo</Title>
+                <Title className="my-3 mx-2">Tickets to use</Title>
                 <Input
                   className="text-black h-[60px] rounded-lg"
                   type="number"
                   name="balance"
                   id="balance"
-                  placeholder="Cantidad a descontar"
+                  placeholder="Amount to scan"
                   value={balance}
                   onChange={(e) => setBalance(e.target.value)}
                 />
@@ -99,13 +99,13 @@ function UpdateBalanceForm({ accountId }: UpdateBalanceProps) {
                   type="text"
                   name="description"
                   id="description"
-                  placeholder="Descripcion del descuento"
+                  placeholder="Description"
                   value={descripcion}
                   onChange={(e) => setDescripcion(e.target.value)}
                 />
                 <br />
                 <Button type="submit" disabled={loading}>
-                  Actualizar
+                  End scan
                 </Button>
               </Form>
               <ToastContainer
