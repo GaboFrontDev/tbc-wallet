@@ -21,7 +21,7 @@ export default async function QrTemplate({
   return (
     <>
       <div className="fixed top-0 left-0 w-full h-full">
-        <QrImage link={<Link href={linkUrl}>Saldo: {current || 'no disponible'}Ver detalles</Link>}>
+        <QrImage link={<Link href={linkUrl}>Ver detalles y saldo</Link>}>
           <QRCode
             size={200}
             style={{
