@@ -14,7 +14,7 @@ import { NavDrawer } from './components/NavContainer'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'The Beer Company | Americana',
+  title: 'The Beer 1220',
   description: 'Servicio de prepago',
 }
 
