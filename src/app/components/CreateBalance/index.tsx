@@ -88,7 +88,7 @@ function CreateBalance({ url }: { url?: string }) {
                 name="balance"
                 id="balance"
                 className="text-black h-[60px] rounded-lg"
-                placeholder="Balance de nueva cuenta"
+                placeholder="Saldo de nueva cuenta"
                 onChange={(e) => setCurrent(e.target.value)}
               />
               <br />

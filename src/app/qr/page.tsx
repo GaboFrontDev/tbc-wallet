@@ -8,7 +8,13 @@ export default async function QRPage() {
   const account_token = cookieStore.get("account_token")?.value || "";
   const data = (await isAuthorized(account_token)) as account_balance;
 
+  const props = {
+    url: `${process.env.ACCOUNT_BALANCE_URL}/${data.account_id}`,
+    linkUrl: process.env.ACCOUNT_BALANCE_URL || "",
+    id: data.account_id,
+  }
+
   return (
-    <QrTemplate url={`${process.env.ACCOUNT_BALANCE_URL}/${data.account_id}`} linkUrl={process.env.ACCOUNT_BALANCE_URL || ""} />
+    <QrTemplate {...props} />
   );
 }
