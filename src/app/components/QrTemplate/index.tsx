@@ -9,24 +9,15 @@ import { prisma } from "@/app/lib/prisma";
 type Props = {
   url: string;
   linkUrl: string;
-  id: string;
+  balance: number;
 }
 
 export default async function QrTemplate({
   url,
   linkUrl,
-  id,
+  balance,
 }: Props) {
-  const balance = await prisma.account_balance.findUnique({
-    where: {
-      account_id: id,
-    },
-    select: {
-      current: true,
-    },
-  });
-
-  const current = balance?.current;
+  const current = balance;
   return (
     <>
       <div className="fixed top-0 left-0 w-full h-full">

@@ -11,7 +11,7 @@ export default async function QRPage() {
   const props = {
     url: `${process.env.ACCOUNT_BALANCE_URL}/${data.account_id}`,
     linkUrl: process.env.ACCOUNT_BALANCE_URL || "",
-    id: data.account_id,
+    balance: data.current,
   }
 
   return (
