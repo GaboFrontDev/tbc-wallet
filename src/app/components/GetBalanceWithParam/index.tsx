@@ -58,7 +58,7 @@ function GetBalanceWithParam({
                   </b>
                 </Title>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between select-none">
                 <div>{description}</div>
                 <div>$ {discount}</div>
               </div>
